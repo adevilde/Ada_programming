@@ -1,0 +1,38 @@
+V "GNAT Lib v2021"
+A -O2
+A -gnatA
+A -g
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U memoire%b		memoire.adb		f883e66d NE OO PK IL
+
+U memoire%s		memoire.ads		b2be928b EE NE OO PK IL
+
+D memoire.ads		20220113140246 b2be928b memoire%s
+D memoire.adb		20220113140246 4a3d74e6 memoire%b
+D system.ads		20210520051134 a2da961d system%s
+G a e
+G c Z s b [to_byte memoire 11 18 none]
+G c Z s b [to_bits memoire 13 18 none]
+G c Z s s [Tt_bitsBIP memoire 9 9 none]
+X 1 memoire.ads
+1K9*memoire 15l5 15e12 2|1b14 26l5 26t12
+3M14*T_bit 4r13 9r40 2|20r38
+6M14*T_byte 7r13 11r53 13r37 2|4r52 10r24 15r37
+9A14*T_bits(3M14)<integer> 11r38 13r52 2|4r37 15r52 17r24
+11V18*To_byte{6M14} 11>27 2|4b18 11l13 11t20
+11a27 bits{9A14} 2|4b27 8r52
+13V18*To_bits{9A14} 13>27 2|15b18 24l13 24t20
+13m27 byte{6M14} 2|15b27 16r50
+X 2 memoire.adb
+5i17 byte{integer} 8m25 8r33 10r31
+7i21 i{integer} 8r57 8r69
+16i17 i_octet{integer} 20r44 21m25 21r36
+17a17 bits{1|9A14} 20m25 23r24
+19i21 i{integer} 20r32
+

@@ -1,0 +1,32 @@
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Arbre; use arbre;
+with memoire ; use memoire;
+with code;
+
+package interface_utilisateur is
+
+	package code_interface is new code(file_size => 0, nbu_byte => 0);
+	use code_interface;
+
+	Option_inconnue : Exception;
+	Trop_arguments : Exception;
+
+	procedure Afficher_tableH (tab_code : in T_tab_code);
+
+	procedure Afficher_arbreH (Arbre_huff : in out T_arbre;
+							indent : in Unbounded_String;
+							Est_Gauche : in Boolean);
+
+	procedure Affichage (nom_fichier : in String;
+					  tab_code : in T_tab_code;
+					  arbre_huff : in out T_arbre;
+					  indent : in Unbounded_String;
+					  Bavard : in Boolean);
+
+
+	procedure gestion_ligne_commande (nom_fichier : in out String;
+								  Compression : in Boolean;
+								  Bavard : out Boolean);
+
+
+end interface_utilisateur;

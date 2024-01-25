@@ -1,0 +1,158 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+
+with Arbre; use Arbre;
+
+package body code is
+
+	procedure Lire (file_name : in string ; decode : out T_tab_byte) is
+	begin
+		Lire_byte(file_name, decode);
+	end Lire;
+
+
+	procedure Initialiser_tab_branche(tab_branche : out T_tab_branche) is
+	begin
+		for i in 1..2**byte_size loop
+			Initialiser(tab_branche(i));
+		end loop;
+	end Initialiser_tab_branche;
+	
+
+	procedure Premiere_branche (decode : in T_tab_byte ; tab_branche : in out T_tab_branche) is
+		neant : T_arbre;
+	begin
+		Initialiser_tab_branche(tab_branche);
+		for i in 1..file_size loop
+			Affecter(tab_branche(i), T_abyte(decode(i)), La_freq(tab_branche(i)) + 1, neant, neant);
+		end loop;
+		for i in 1..2**byte_size loop
+			if La_freq(tab_branche(i)) = 0 then
+				-- Pour pouvoir déterminer le min de fréquence parmi les caractères présents dans le fichier
+				Affecter(tab_branche(i), T_abyte(Le_byte(tab_branche(i))), file_size, neant, neant);
+			end if;
+		end loop;
+	end Premiere_branche;
+
+
+	procedure Mins(tab_branche : in T_tab_branche ; min1 : out T_arbre ; imin1 : out integer ; min2 : out T_arbre ; imin2 : out integer) is
+		neant : T_arbre;
+	begin
+		Initialiser(neant);
+		Initialiser(min1);
+		Initialiser(min2);
+		Affecter(min1, T_abyte(0), file_size, neant, neant);
+		Affecter(min2, T_abyte(0), file_size, neant, neant);
+		for i in 1..2**byte_size loop
+			--if La_freq(tab_branche(i)) < file_size then 
+			--Put(La_freq(tab_branche(i))); New_Line; end if;
+			if La_freq(tab_branche(i)) <= La_freq(min1) then
+				min2 := min1;
+				imin2 := imin1;
+				min1 := tab_branche(i);
+				imin1 := i;
+			elsif La_freq(tab_branche(i)) <= La_freq(min2) then
+				min2 := tab_branche(i);
+				imin2 := i;
+			end if;
+		end loop;
+	end Mins;
+
+
+	procedure ArbreH (tab_branche : in out T_tab_branche ; arbre : in out T_arbre) is
+		min1 : T_arbre;
+		min2 : T_arbre;
+		imin1 : integer;
+		imin2 : integer;
+		freq : integer;
+		neant : T_arbre;
+		zero : T_abyte := T_abyte(0);
+	begin
+		--Put(file_size);
+		--New_Line;
+		loop
+			--New_Line;
+			--for i in 1..256 loop
+			--if La_freq(tab_branche(i)) < file_size then 
+			--Put(La_freq(tab_branche(i))); New_Line; end if;
+			--end loop;
+			--New_Line;
+			Mins(tab_branche, min1, imin1, min2, imin2);
+			freq := La_freq(min1) + La_freq(min2);
+			--New_Line;
+			--Put(La_freq(min1));
+			--Put(La_freq(min2));
+			--Put(freq);
+			--New_Line;
+			Affecter(tab_branche(imin1), zero, freq, min1, min2);
+			--Put(La_freq(tab_branche(imin1)));
+			--New_Line;
+			Affecter(tab_branche(imin2), zero, file_size, neant, neant);
+			exit when freq >= file_size;
+		end loop;
+		arbre := tab_branche(imin1);
+		Put(La_freq(Branche_d(arbre)));
+	end ArbreH;
+
+
+	procedure Tableau_code (arbre : in T_arbre ; tab_code : out T_tab_code ; c_code : in out integer ; c_code_l : in out integer) is
+	begin
+		--Put("debute tab_code");
+		--New_Line;
+		if Terminal(arbre) then
+			tab_code(Integer'Val(Le_byte(arbre)) + 1).value := T_byte(c_code);
+			tab_code(Integer'Val(Le_byte(arbre)) + 1).length := c_code_l;
+			--Put("fini");
+		else
+			--if Branche_d(arbre) = arbre then Put("Branche_d(arbre) = arbre");end if;
+			c_code_l := c_code_l + 1;
+			Tableau_code (Branche_g(arbre), tab_code, c_code, c_code_l);
+			c_code := c_code + 2**c_code_l;
+			Tableau_code(Branche_d(arbre), tab_code, c_code, c_code_l);
+		end if;
+	end Tableau_code;
+
+
+	procedure Traduire (decode : in T_tab_byte ; tab_code : in T_tab_code ; code : out T_tab_bit ; code_size : out integer) is
+		c_code : T_byte;
+		c_code_l : integer;
+		bits : T_bits;
+	begin
+		code_size := 0;
+		for i in 1..file_size loop
+			c_code := tab_code(Integer'Val(decode(i)) + 1).value;
+			c_code_l := tab_code(Integer'Val(decode(i)) + 1).length;
+			bits := To_bits(c_code);
+			for j in 1..c_code_l loop
+				code(i + j + 1) := fichier_taille.memorie8.T_bit(bits(j));
+			end loop;
+			code_size := code_size + c_code_l;
+		end loop;
+	end Traduire;
+
+
+	procedure Ecrire (file_name : in string ; code : in T_tab_bit ; code_size : in integer) is
+		tmp : fichier_taille.memorie8.T_bits;
+		r : integer := code_size mod 8;
+	begin
+		Creer(file_name);
+		for i in 1..code_size / 8 loop
+			for j in 1..8 loop
+				tmp(j) := code(8 * i + j - 9);
+			end loop;
+			Ajouter(file_name, tmp);
+		end loop;
+		if r /= 0 then
+			for i in 1..r loop
+				tmp(i) := code(code_size - r + i);
+			end loop;
+			for i in r + 1..8 loop
+				tmp(i) := fichier_taille.memorie8.T_bit(0);
+			end loop;
+		end if;
+	end Ecrire;
+
+end code;
+
+
+

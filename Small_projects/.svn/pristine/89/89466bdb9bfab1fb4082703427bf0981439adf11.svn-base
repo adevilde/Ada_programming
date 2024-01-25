@@ -1,0 +1,67 @@
+
+-- Définition de structures de données associatives sous forme d'une liste
+-- chaînée associative (arbre).
+
+package Arbre is
+
+	type T_arbre is limited private;
+
+	-- Initialiser une arbre.  La arbre est vide.
+    procedure Initialiser(arbre : out T_arbre);
+            
+
+
+	-- Est-ce qu'une arbre est vide ?
+	function Est_Vide (arbre : T_arbre) return Boolean;
+
+
+	-- Est-ce qu'une arbre est terminal ?
+	function Terminal (arbre : T_arbre) return Boolean;
+
+
+	-- Obtenir le nombre d'éléments d'une arbre. 
+	function Taille (arbre : in T_arbre) return Integer;
+
+
+	-- Affecter des données au premier noeud d'un arbre.
+	procedure Affecter (arbre 	: 	in out 	T_arbre 		; 
+			    octet 	: 	in 	integer 	:= -1 	; 
+			    freq 	: 	in 	integer 	:= 0	);
+
+
+	--Retourne la branche gauche de l'arbre.
+	function Branche_g (arbre : in T_arbre) return T_arbre;
+
+
+	--Retourne la branche droite de l'arbre.
+	function Branche_d (arbre : in T_arbre) return T_arbre;
+
+
+	-- Savoir si une Clé est présente dans une arbre.
+	function Octet_present (arbre : in T_arbre ; octet : in integer) return Boolean;
+
+
+	-- Obtenir la donnée associée à une octet dans la arbre.
+	-- Exception : octet_Absente_Exception si Clé n'est pas utilisée dans l'arbre
+	function La_freq (arbre : in T_arbre ; octet : in integer) return integer;
+
+
+	-- Supprimer tous les éléments d'une arbre.
+	procedure Vider (arbre : in out T_arbre);
+
+
+private
+        
+        type T_noeud;
+
+        type T_arbre is access T_noeud;
+
+        type T_noeud is
+                record
+			freq : Integer;        
+			octet : Integer;
+			branche_d : T_arbre;
+			branche_g : T_arbre;
+                end record;
+
+end Arbre;

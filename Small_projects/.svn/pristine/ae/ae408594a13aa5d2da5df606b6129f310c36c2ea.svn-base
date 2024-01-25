@@ -1,0 +1,119 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with arbre; use arbre;
+with memoire; use memoire;
+with fichier;
+with code;
+with interface_utilisateur; use interface_utilisateur;
+
+
+procedure test_interface is
+
+	package fichier_1 is new fichier(size => 1);
+	length : integer := fichier_1.Taille("exemple_huff.txt");
+
+	package fichier_length is new fichier(size => length);
+	use fichier_length;
+
+	package code_0 is new code(file_size => length, nbu_byte => 0);
+
+	package code_length is new code(file_size => length, nbu_byte => code_0.nb_caractere_unique("exemple_huff.txt"));
+	use code_length;
+
+	tab_branche : T_tab_branche;
+	arbre : T_arbre;
+	tab_code : T_tab_code;
+	c_code : integer := 0;
+	c_code_l : integer := 0;
+	c : integer := 0;
+	pi : T_pi;
+	bpi : T_bpi;
+	ipi : integer := 0;
+	ibpi : integer := 0;
+	indent : Unbounded_String := To_Unbounded_String("");
+
+
+
+
+	procedure Afficher_tableH (tab_code : in T_tab_code) is
+
+		codeH : T_bits;
+		code_ff : T_bits;
+		val : T_byte;
+		longueur : Integer;
+
+	begin
+
+		for i in 0..255 loop
+			Acces_tab_code(tab_code, T_byte(i), val, longueur);
+			if longueur /= 0 then
+				Put("'");
+				-- Afficher symbole correspondant au code
+				if i = 10 then
+					Put("/n");
+				else
+					Put(Character'Val(i));
+				end if;
+				Put("' --> ");
+
+				codeH := To_bits(val);
+				for j in 1..longueur loop
+					Put(Integer'Val(codeH(longueur-j+1)),1);
+				end loop;
+				New_Line;
+
+			elsif i = 0 then
+				Put("'/$'");
+				Put(" --> ");
+
+				code_ff := To_bits(val);
+				for j in 1..8 loop
+					Put(Integer'Val(code_ff(j)),1);
+				end loop;
+				New_Line;
+			end if;
+		end loop;
+
+	end Afficher_tableH;
+
+
+
+begin
+	Premiere_branche("exemple_huff.txt", tab_branche);
+	-- Put("Premiere_branche ok");
+	ArbreH(tab_branche, arbre);
+	-- Put("ArbreH ok");
+	-- Put(Taille(arbre));
+	-- Put("Taille arbre finie");
+	Initialiser_tab_code(tab_code);
+	Tableau_code(arbre, tab_code, c_code, c_code_l, pi, bpi, ipi, ibpi);
+	--for i in 0..255 loop
+		--Acces_tab_code(tab_code, code_length.memorie8.T_byte(i), val, len);
+		--bits := To_bits(memorie8.T_byte(val));
+		--if len /= 0 then New_line; c := c+1 ; end if;
+		--for j in 1..len loop
+			--put(integer'val(bits(j)));
+		--end loop;
+	--end loop;
+	--New_line;
+ --Put(c);
+	New_Line;
+	Put_Line("Voici l'arbre de Huffman :");
+	Afficher_arbreH(Arbre, indent, False);
+	New_Line;
+	Put_Line("Voici la table de Huffman :");
+	Afficher_tableH(tab_code);
+	New_Line;
+	Put("Le nombre de caractère unique dans le fichier est ");
+ 	Put(nb_caractere_unique("exemple_huff.txt"),1);
+	New_Line;
+	New_Line;
+	Put("La taille du fichier initiale était ");
+ 	Put(Length,1);
+	New_Line;
+	New_Line;
+ 	Put("La taille du fichier compressé est ");
+	Put(fichier_length.Taille("exemple_huff.txt"),1);
+
+end test_interface;

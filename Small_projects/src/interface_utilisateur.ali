@@ -1,0 +1,303 @@
+V "GNAT Lib v2021"
+A -O2
+A -gnatA
+A -g
+A -mtune=generic
+A -march=x86-64
+P SS ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_NESTED_FINALIZATION
+RV NO_RECURSION
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_STREAMS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+
+U interface_utilisateur%b  interface_utilisateur.adb  8c3b2645 OO PK IL
+W ada%s			ada.ads			ada.ali
+W ada.command_line%s	a-comlin.adb		a-comlin.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.streams%s		a-stream.adb		a-stream.ali
+Z ada.streams.stream_io%s  a-ststio.adb		a-ststio.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W arbre%s		arbre.adb		arbre.ali
+W code%s		code.adb		code.ali  ED
+W fichier%s		fichier.adb		fichier.ali  ED
+W memoire%s		memoire.adb		memoire.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+Z system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+
+U interface_utilisateur%s  interface_utilisateur.ads  834b7378 EE OO PK IL
+W ada%s			ada.ads			ada.ali
+Z ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.streams%s		a-stream.adb		a-stream.ali
+Z ada.streams.stream_io%s  a-ststio.adb		a-ststio.ali
+W ada.strings%s		a-string.ads		a-string.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.strings.unbounded%s  a-strunb.adb		a-strunb.ali
+Z ada.text_io%s		a-textio.adb		a-textio.ali
+W arbre%s		arbre.adb		arbre.ali
+W code%s		code.adb		code.ali
+Z fichier%s		fichier.adb		fichier.ali
+W memoire%s		memoire.adb		memoire.ali
+Z system%s		system.ads		system.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+Z system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+
+D ada.ads		20210520051130 76789da1 ada%s
+D a-charac.ads		20210520051127 2d3ec45b ada.characters%s
+D a-chlat1.ads		20210520051127 66457d31 ada.characters.latin_1%s
+D a-comlin.ads		20210520051127 4aa66568 ada.command_line%s
+D a-except.ads		20210520051127 946f3014 ada.exceptions%s
+D a-finali.ads		20210520051127 bf4f806b ada.finalization%s
+D a-inteio.ads		20210520051127 f64b89a4 ada.integer_text_io%s
+D a-ioexce.ads		20210520051127 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20210520051128 119b8fb3 ada.streams%s
+D a-ststio.ads		20210520051128 d6d358e8 ada.streams.stream_io%s
+D a-string.ads		20210520051128 90ac6797 ada.strings%s
+D a-strmap.ads		20210520051128 5a88892a ada.strings.maps%s
+D a-sttebu.ads		20210520051128 18209c64 ada.strings.text_buffers%s
+D a-strunb.ads		20210520051128 03325227 ada.strings.unbounded%s
+D a-stuten.ads		20210520051128 808c40ad ada.strings.utf_encoding%s
+D a-tags.ads		20210520051129 9eaa38c6 ada.tags%s
+D a-textio.ads		20210520051129 aef4d56d ada.text_io%s
+D a-tiinio.ads		20210520051129 390edddb ada.text_io.integer_io%s
+D a-unccon.ads		20210520051129 0e9b276f ada.unchecked_conversion%s
+D arbre.ads		20220113140800 07818ff6 arbre%s
+D code.ads		20220113164100 77a8884d code%s
+D code.adb		20220114233941 bdbc2b98 code%b
+D fichier.ads		20220113140503 a3bb2005 fichier%s
+D fichier.adb		20220113135821 ea5f2707 fichier%b
+D interface_utilisateur.ads  20220114220614 42eeb46f interface_utilisateur%s
+D interface_utilisateur.adb  20220115001154 bde01ebe interface_utilisateur%b
+D interfac.ads		20210520051131 edec285f interfaces%s
+D i-cstrea.ads		20210520051131 e53d8b8e interfaces.c_streams%s
+D memoire.ads		20220113140246 b2be928b memoire%s
+D system.ads		20210520051134 a2da961d system%s
+D s-atocou.ads		20210520051131 b45c2d8d system.atomic_counters%s
+D s-crtl.ads		20210520051131 0ebbdb71 system.crtl%s
+D s-exctab.ads		20210520051131 54135002 system.exception_table%s
+D s-ficobl.ads		20210520051131 078245e4 system.file_control_block%s
+D s-finroo.ads		20210520051131 4ff27390 system.finalization_root%s
+D s-memory.ads		20210520051132 597d6634 system.memory%s
+D s-parame.ads		20210520051133 4752c4cb system.parameters%s
+D s-putima.ads		20210520051133 4e095881 system.put_images%s
+D s-secsta.ads		20210520051133 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20210520051133 a7318a92 system.soft_links%s
+D s-stache.ads		20210520051133 a37c21ec system.stack_checking%s
+D s-stalib.ads		20210520051133 472fbca8 system.standard_library%s
+D s-stalib.adb		20210520051133 977290bf system.standard_library%b
+D s-stoele.ads		20210520051133 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20210520051133 ed88f8fb system.storage_elements%b
+D s-stratt.ads		20210520051133 7bdda3fa system.stream_attributes%s
+D s-traent.ads		20210520051133 26a8d361 system.traceback_entries%s
+D s-unstyp.ads		20210520051133 2b077493 system.unsigned_types%s
+D s-wchcon.ads		20210520051134 1b7d22d2 system.wch_con%s
+D unchconv.ads		20210520051134 ca2f9e18 unchecked_conversion%s
+G a e
+G c b b b [b interface_utilisateur 9 1 none]
+G c s s s [s interface_utilisateur 6 1 none]
+G c Z s s [creer interface_utilisateur__code_interface__fichier_taille 12 19 12_9_8_9]
+G c Z s s [taille interface_utilisateur__code_interface__fichier_taille 14 18 12_9_8_9]
+G c Z s s [lire_bit interface_utilisateur__code_interface__fichier_taille 16 19 12_9_8_9]
+G c Z s s [lire_byte interface_utilisateur__code_interface__fichier_taille 18 19 12_9_8_9]
+G c Z s s [ecrire interface_utilisateur__code_interface__fichier_taille 20 19 12_9_8_9]
+G c Z s s [ajouter interface_utilisateur__code_interface__fichier_taille 22 19 12_9_8_9]
+G c Z s s [Tt_tab_bitBIP interface_utilisateur__code_interface__fichier_taille 9 9 12_9_8_9]
+G c Z s s [Tt_tab_byteBIP interface_utilisateur__code_interface__fichier_taille 10 9 12_9_8_9]
+G c Z s s [to_byte interface_utilisateur__code_interface__fichier_taille 9 18 12_9_8_9]
+G c Z s s [to_bits interface_utilisateur__code_interface__fichier_taille 19 18 12_9_8_9]
+G c Z s s [nb_caractere_unique interface_utilisateur__code_interface 23 18 8_9]
+G c Z s s [initialiser_tab_branche interface_utilisateur__code_interface 27 19 8_9]
+G c Z s s [premiere_branche interface_utilisateur__code_interface 32 19 8_9]
+G c Z s s [mins interface_utilisateur__code_interface 37 19 8_9]
+G c Z s s [arbreh interface_utilisateur__code_interface 45 19 8_9]
+G c Z s s [initialiser_tab_code interface_utilisateur__code_interface 50 19 8_9]
+G c Z s s [tableau_code interface_utilisateur__code_interface 54 19 8_9]
+G c Z s s [traduire interface_utilisateur__code_interface 66 19 8_9]
+G c Z s s [acces_tab_code interface_utilisateur__code_interface 74 19 8_9]
+G c Z s s [free interface_utilisateur__code_interface 81 19 8_9]
+G c Z s s [t_tradIP interface_utilisateur__code_interface 87 14 8_9]
+G c Z s s [Tt_tab_codeBIP interface_utilisateur__code_interface 91 9 8_9]
+G c Z s s [Tt_tab_brancheBIP interface_utilisateur__code_interface 93 9 8_9]
+G c Z s s [Tt_piBIP interface_utilisateur__code_interface 94 9 8_9]
+G c Z s s [Tt_bpiBIP interface_utilisateur__code_interface 96 9 8_9]
+G c Z s b [afficher_tableh interface_utilisateur 14 19 none]
+G c Z s b [afficher_arbreh interface_utilisateur 16 19 none]
+G c Z s b [affichage interface_utilisateur 20 19 none]
+G c Z s b [gestion_ligne_commande interface_utilisateur 27 19 none]
+G c Z b b [creer interface_utilisateur__fichier_1 12 19 11_9]
+G c Z b b [taille interface_utilisateur__fichier_1 14 18 11_9]
+G c Z b b [lire_bit interface_utilisateur__fichier_1 16 19 11_9]
+G c Z b b [lire_byte interface_utilisateur__fichier_1 18 19 11_9]
+G c Z b b [ecrire interface_utilisateur__fichier_1 20 19 11_9]
+G c Z b b [ajouter interface_utilisateur__fichier_1 22 19 11_9]
+G c Z b b [Tt_tab_bitBIP interface_utilisateur__fichier_1 9 9 11_9]
+G c Z b b [Tt_tab_byteBIP interface_utilisateur__fichier_1 10 9 11_9]
+G c Z b b [to_byte interface_utilisateur__fichier_1 9 18 11_9]
+G c Z b b [to_bits interface_utilisateur__fichier_1 19 18 11_9]
+G c Z b b [creer interface_utilisateur__fichier_length 12 19 14_9]
+G c Z b b [taille interface_utilisateur__fichier_length 14 18 14_9]
+G c Z b b [lire_bit interface_utilisateur__fichier_length 16 19 14_9]
+G c Z b b [lire_byte interface_utilisateur__fichier_length 18 19 14_9]
+G c Z b b [ecrire interface_utilisateur__fichier_length 20 19 14_9]
+G c Z b b [ajouter interface_utilisateur__fichier_length 22 19 14_9]
+G c Z b b [Tt_tab_bitBIP interface_utilisateur__fichier_length 9 9 14_9]
+G c Z b b [Tt_tab_byteBIP interface_utilisateur__fichier_length 10 9 14_9]
+G c Z b b [to_byte interface_utilisateur__fichier_length 9 18 14_9]
+G c Z b b [to_bits interface_utilisateur__fichier_length 19 18 14_9]
+G r i none [b interface_utilisateur 9 1 none] [fichier standard 6 9 none]
+G r i none [s interface_utilisateur 6 1 none] [code standard 10 9 none]
+G r i none [s interface_utilisateur 6 1 none] [fichier standard 6 9 none]
+G r c none [initialiser_tab_branche interface_utilisateur__code_interface 27 19 8_9] [initialiser arbre 11 19 none]
+G r c none [initialiser_tab_branche interface_utilisateur__code_interface 27 19 8_9] [affecter arbre 30 19 none]
+G r c none [initialiser_tab_branche interface_utilisateur__code_interface 27 19 8_9] [devient_ff arbre 38 19 none]
+G r c none [premiere_branche interface_utilisateur__code_interface 32 19 8_9] [initialiser arbre 11 19 none]
+G r c none [premiere_branche interface_utilisateur__code_interface 32 19 8_9] [affecter arbre 30 19 none]
+G r c none [premiere_branche interface_utilisateur__code_interface 32 19 8_9] [devient_ff arbre 38 19 none]
+G r c none [premiere_branche interface_utilisateur__code_interface 32 19 8_9] [la_freq arbre 59 18 none]
+G r c none [premiere_branche interface_utilisateur__code_interface 32 19 8_9] [le_byte arbre 62 18 none]
+G r c none [mins interface_utilisateur__code_interface 37 19 8_9] [initialiser arbre 11 19 none]
+G r c none [mins interface_utilisateur__code_interface 37 19 8_9] [affecter arbre 30 19 none]
+G r c none [mins interface_utilisateur__code_interface 37 19 8_9] [la_freq arbre 59 18 none]
+G r c none [arbreh interface_utilisateur__code_interface 45 19 8_9] [initialiser arbre 11 19 none]
+G r c none [arbreh interface_utilisateur__code_interface 45 19 8_9] [affecter arbre 30 19 none]
+G r c none [arbreh interface_utilisateur__code_interface 45 19 8_9] [la_freq arbre 59 18 none]
+G r c none [tableau_code interface_utilisateur__code_interface 54 19 8_9] [terminal arbre 22 18 none]
+G r c none [tableau_code interface_utilisateur__code_interface 54 19 8_9] [est_ff arbre 42 18 none]
+G r c none [tableau_code interface_utilisateur__code_interface 54 19 8_9] [le_byte arbre 62 18 none]
+G r c none [tableau_code interface_utilisateur__code_interface 54 19 8_9] [branche_g arbre 46 18 none]
+G r c none [tableau_code interface_utilisateur__code_interface 54 19 8_9] [branche_d arbre 50 18 none]
+G r c none [traduire interface_utilisateur__code_interface 66 19 8_9] [to_bits memoire 13 18 none]
+G r c none [traduire interface_utilisateur__code_interface 66 19 8_9] [to_byte memoire 11 18 none]
+G r c none [free interface_utilisateur__code_interface 81 19 8_9] [vider arbre 66 19 none]
+G r c none [afficher_tableh interface_utilisateur 14 19 none] [to_bits memoire 13 18 none]
+G r c none [afficher_arbreh interface_utilisateur 16 19 none] [est_vide arbre 18 18 none]
+G r c none [afficher_arbreh interface_utilisateur 16 19 none] [la_freq arbre 59 18 none]
+G r c none [afficher_arbreh interface_utilisateur 16 19 none] [terminal arbre 22 18 none]
+G r c none [afficher_arbreh interface_utilisateur 16 19 none] [le_byte arbre 62 18 none]
+G r c none [afficher_arbreh interface_utilisateur 16 19 none] [est_ff arbre 42 18 none]
+G r c none [afficher_arbreh interface_utilisateur 16 19 none] [branche_g arbre 46 18 none]
+G r c none [afficher_arbreh interface_utilisateur 16 19 none] [branche_d arbre 50 18 none]
+G r c none [affichage interface_utilisateur 20 19 none] [est_vide arbre 18 18 none]
+G r c none [affichage interface_utilisateur 20 19 none] [la_freq arbre 59 18 none]
+G r c none [affichage interface_utilisateur 20 19 none] [terminal arbre 22 18 none]
+G r c none [affichage interface_utilisateur 20 19 none] [le_byte arbre 62 18 none]
+G r c none [affichage interface_utilisateur 20 19 none] [est_ff arbre 42 18 none]
+G r c none [affichage interface_utilisateur 20 19 none] [branche_g arbre 46 18 none]
+G r c none [affichage interface_utilisateur 20 19 none] [branche_d arbre 50 18 none]
+G r c none [affichage interface_utilisateur 20 19 none] [to_bits memoire 13 18 none]
+X 1 ada.ads
+16K9*Ada 20e8 25|1r6 1r33 26|1r6 1r23 2r6 2r31 3r6 3r28
+X 4 a-comlin.ads
+36K13*Command_Line 144e21 26|3w10 3r32
+39V13*Argument_Count{natural} 26|151s14
+52V13*Argument{string} 26|159s22 159s44 165s54
+X 7 a-inteio.ads
+18K13*Integer_Text_IO[18|46] 26|2w10 2r35
+X 11 a-string.ads
+16K13*Strings 35e16 25|1r10 1r37
+X 14 a-strunb.ads
+83K21*Unbounded 765e26 25|1w18 1r45
+88R9*Unbounded_String<6|43R9> 744e15 25|17r69 23r55 27r64 26|48r69 53r30
+. 113r55 141r64 145r26
+104V13*To_Unbounded_String{88R9} 26|165s34
+117V13*To_String{string} 26|59s37
+136U14*Append 26|87s33 89s33 91s33
+245V14*"="{boolean} 26|58s35 86s35
+X 17 a-textio.ads
+58K13*Text_IO 725e16 26|1w10 1r27
+262U14*New_Line 26|38s33 84s25 102s25 121s25 124s25 127s25 130s25
+390U14*Put 26|31s33 79s41
+463U14*Put 26|29s33 32s33 59s33 60s33 62s41 64s41 68s25 70s25 73s33 75s41
+. 77s41 80s41 125s25 128s25 131s25
+506U14*Put_Line 26|119s25 122s25 154s25 156s25 173s41 174s40 175s36
+542X4*Name_Error 26|175r22
+X 18 a-tiinio.ads
+80U14*Put 26|36s41[7|18] 69s25[7|18] 126s25[7|18] 129s25[7|18] 132s25[7|18]
+X 20 arbre.ads
+4K9*Arbre 84e10 25|2w6 2r17 26|4w6 4r17
+8P14*T_arbre 25|16r56 22r63 26|47r56 51r34 52r34 112r63
+18V18*Est_Vide{boolean} 26|57s24
+22V18*Terminal{boolean} 26|72s28 94s32
+42V18*Est_ff{boolean} 26|76s39
+46V18*Branche_g{8P14} 26|95s51
+50V18*Branche_d{8P14} 26|98s51
+59V18*La_freq{integer} 26|69s29
+62V18*Le_byte{29|6M14} 26|74s48 79s59
+X 21 code.ads
+6i9 file_size{integer} 25|8r44
+7i9 nbu_byte{integer} 25|8r60
+10k9*code 98e9 25|4w6 8r39 26|7w6
+15R14*T_trad
+16A14*T_tab_code(15R14[25|8]) 25|14r50[8] 21r57[8] 26|18r50[25|8] 111r57[25|8]
+23V18*nb_caractere_unique{integer} 26|126s29[25|8]
+74U19*Acces_tab_code 26|27s25[25|8]
+X 23 fichier.ads
+4i9 size{integer} 26|11r42 14r47
+6k9*Fichier 24e12 26|6w6 11r34 14r39
+14V18 Taille{integer} 26|12s39[11] 132s44[14]
+X 25 interface_utilisateur.ads
+6K9*interface_utilisateur 32l5 32e26 26|9b14 181l5 181t26
+8K17*code_interface[21|10] 9r13
+11X9*Option_inconnue 26|162r31 173r22
+12X9*Trop_arguments 26|168r31 174r22
+14U19*Afficher_tableH 14>36 26|18b19 42l13 42t28 123s25
+14a36 tab_code{21|16A14[8]} 26|18b36 27r40
+16U19*Afficher_arbreH 16=36 17>57 18>57 26|47b19 96s33 99s33 105l13 105t28
+. 120s25
+16p36 Arbre_huff{20|8P14} 26|47b36 57r33 69r37 72r37 74r56 76r46 79r67 94r41
+. 95m61 95r61 98m61 98r61
+17r57 indent{14|88R9} 26|48b57 53r50 58r28 59r47 86r28
+18b57 Est_Gauche{boolean} 26|49b57 61r36 88r31
+20U19*Affichage 20>30 21>43 22=43 23>43 24>43 26|110b19 135l13 135t22
+20a30 nom_fichier{string} 26|110b30 126r49 132r51
+21a43 tab_code{21|16A14[8]} 26|111b43 123r41
+22p43 arbre_huff{20|8P14} 26|112b43 120m41
+23r43 indent{14|88R9} 26|113b43 120r53
+24b43 Bavard{boolean} 26|114b43 118r20
+27U19*gestion_ligne_commande 27=43 28>67 29<67 26|141b19 178l13 178t35
+27r43 nom_fichier{14|88R9} 26|141b43 165m19
+28b67 Compression{boolean} 26|142b67 153r22
+29b67 Bavard{boolean} 26|143b67 149m17 160m33
+X 26 interface_utilisateur.adb
+11K17 fichier_1[23|6] 12r29
+12i9 length{integer} 14r55 129r29
+14K17 fichier_length[23|6] 15r13 132r29
+20a17 codeH{29|9A14} 34m33 36r57
+21m17 val{29|6M14} 27m61 34r50
+22i17 length{integer} 27m66 28r28 35r42
+26i21 i{integer} 27r57 31r51
+35i37 j{integer} 36r63
+51p17 Branche_droite{20|8P14} 98m33 99m49 99r49
+52p17 Branche_gauche{20|8P14} 95m33 96m49 96r49
+53r17 new_indent{14|88R9} 87m40 87r40 89m40 89r40 91m40 91r40 96r65 99r65
+145r17 indent{14|88R9}
+X 29 memoire.ads
+1K9*memoire 25|3w6 3r20 26|5w6 5r19 29|15e12
+3M14*T_bit
+6M14*T_byte 26|21r23 27r50
+9A14*T_bits(3M14)<integer> 26|20r25
+13V18*To_bits{9A14} 26|34s42
+X 30 system.ads
+67M9*Address
+X 36 s-memory.ads
+53V13*Alloc{30|67M9} 103i<c,__gnat_malloc>22
+68U14*Free 104i<c,__gnat_free>22
+76V13*Realloc{30|67M9} 105i<c,__gnat_realloc>22
+X 43 s-stalib.adb
+89U14 Break_Start 90i<c,__gnat_break_start>22
+

@@ -1,0 +1,82 @@
+-- Définition de structures de données associatives sous forme d'une liste
+-- chaînée associative (LCA).
+with LCA;
+
+generic
+    type T_Cle is private;
+    type T_Donnee is private;
+    Taille_tab : Integer;
+    with function hachage(Cle : in T_Cle) return Integer;
+
+package TH is
+
+	type T_TH is limited private;
+
+	-- Initialiser une Th.  La Th est vide.
+	procedure Initialiser(Th: out T_TH) with
+		Post => Est_Vide (Th);
+
+
+	-- Est-ce qu'une Th est vide ?
+	function Est_Vide (Th : T_TH) return Boolean;
+
+
+	-- Obtenir le nombre d'éléments d'une Th.
+	function Taille (Th : in T_TH) return Integer with
+		Post => Taille'Result >= 0
+			and (Taille'Result = 0) = Est_Vide (Th);
+
+
+	-- Enregistrer une Donnée associée à une Clé dans une Th.
+	-- Si la clé est déjà présente dans la Th, sa donnée est changée.
+	procedure Enregistrer (Th : in out T_TH ; Cle : in T_Cle ; Donnee : in T_Donnee) with
+		Post => Cle_Presente (Th, Cle) and (La_Donnee (Th, Cle) = Donnee)   -- donnée insérée
+				and (not (Cle_Presente (Th, Cle)'Old) or Taille (Th) = Taille (Th)'Old)
+				and (Cle_Presente (Th, Cle)'Old or Taille (Th) = Taille (Th)'Old + 1);
+
+	-- Supprimer la Donnée associée à une Clé dans une Th.
+	-- Exception : Cle_Absente_Exception si Clé n'est pas utilisée dans la Th
+	procedure Supprimer (Th : in out T_TH ; Cle : in T_Cle) with
+		Post =>  Taille (Th) = Taille (Th)'Old - 1 -- un élément de moins
+			and not Cle_Presente (Th, Cle);         -- la clé a été supprimée
+
+
+	-- Savoir si une Clé est présente dans une Th.
+	function Cle_Presente (Th : in T_TH ; Cle : in T_Cle) return Boolean;
+
+
+	-- Obtenir la donnée associée à une Cle dans la Th.
+	-- Exception : Cle_Absente_Exception si Clé n'est pas utilisée dans l'Th
+	function La_Donnee (Th : in T_TH ; Cle : in T_Cle) return T_Donnee;
+
+
+	-- Supprimer tous les éléments d'une Th.
+	procedure Vider (Th : in out T_TH) with
+		Post => Est_Vide (Th);
+
+
+	-- Appliquer un traitement (Traiter) pour chaque couple d'une Th.
+	generic
+		with procedure Traiter (Cle : in T_Cle; Donnee: in T_Donnee);
+	procedure TH_Pour_Chaque (Th : in T_TH);
+
+
+-- AVEC_AFFICHER_DEBUG START DELETE
+	-- Afficher la Th en révélant sa structure interne.
+	-- generic
+	--	with procedure Afficher_Cle (Cle : in T_Cle);
+	--	with procedure Afficher_Donnee (Donnee : in T_Donnee);
+	-- procedure Afficher_Debug (Th : in T_TH);
+
+
+-- AVEC_AFFICHER_DEBUG STOP DELETE
+private
+
+    package LCA_associee_TH is
+            new LCA(T_Cle, T_Donnee);
+    use LCA_associee_TH;
+
+    type T_TH is array (1..Taille_tab) of T_LCA;
+
+
+end TH;

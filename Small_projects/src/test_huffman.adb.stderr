@@ -1,0 +1,6 @@
+code.adb:7:14: error: missing body for "Acces_tab_branche" declared at code.ads:82
+code.adb:7:14: error: missing body for "Acces_code" declared at code.ads:85
+code.adb:7:14: error: missing body for "Acces_pi" declared at code.ads:88
+code.adb:7:14: error: missing body for "Acces_bpi" declared at code.ads:91
+code.adb:359:52: error: not type conformant with declaration at code.ads:76
+code.adb:359:52: error: type of "byte" does not match

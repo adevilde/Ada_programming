@@ -1,0 +1,18 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with fichier;
+
+procedure test_fichier is
+	package fichier_0 is new fichier(size => 0);
+	Taille : integer := fichier_0.Taille("exemple_fichier.in");
+	package fichier_taille is new fichier(size => Taille);
+	tab : fichier_taille.T_tab;
+
+	package fichier_1 is new fichier(size => 1);
+	tab2 : fichier_1.T_tab := (1, 0, 1, 0, 1, 0, 1, 0);
+	tab3 : fichier_1.T_tab;
+
+begin
+	fichier_taille.Lire("exemple_fichier.in", tab);
+	fichier_taille.Ecrire("exemple_fichier.out", tab);
+end test_fichier;

@@ -1,0 +1,24 @@
+with types;	use types;
+with fichier;	use fichier;
+
+package body decode is
+	
+	Procedure Lire 
+
+	Procedure Decoder (code : in T_code; tab_code : in T_tab_code; lng_decode : in integer; decode : out T_decode) is
+		tmp : T_trab;
+		c : integer := 0;
+
+	begin
+		Initialiser(tmp);
+		Initialiser(decode);
+		for i in 1..code'last loop
+			Affecter(tmp, c, code(i));
+			c := c + 1;
+			if Dans(tmp, tab_code) then
+				Ajouter(tmp, decode);
+				Initialiser(tmp);
+				c := 0;
+			end if;
+		end loop;
+end decode;

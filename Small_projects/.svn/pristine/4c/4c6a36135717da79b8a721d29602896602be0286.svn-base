@@ -1,0 +1,24 @@
+generic
+	size : integer;
+
+package Fichier is 
+	type T_bites is array (1..8) of integer;
+	type T_octet is limited private;
+	type T_tab is array (1..size*8) of integer;
+
+
+	Procedure Creer (file_name : in string);
+
+	Function Taille (file_name : in string) return integer;
+
+	Procedure Lire (file_name : in string ; tab : out T_tab);
+
+	Procedure Ecrire (file_name : in string ; tab : in T_tab);
+
+	Procedure Ajouter (file_name : in string ; octet : in integer);
+
+private
+	type T_octet is mod 2 ** 8;
+	for T_octet'Size use 8;
+
+end Fichier;

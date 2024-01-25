@@ -1,0 +1,57 @@
+with Ada.Streams.Stream_IO; use Ada.Streams.Stream_IO;
+with Ada.Text_IO; use Ada.Text_IO;
+with types; use types;
+
+package body fichier is
+
+
+	type T_bit is mod 2;	-- sur 8 bits
+	for T_bit'Size use 1;
+
+	File_Name : String :=  "exemple_fichier.out";
+	File      : Ada.Streams.Stream_IO.File_Type;	-- car il y a aussi Ada.Text_IO.File_Type
+	S         : Stream_Access;
+	Bit     : T_bit;
+
+    Taille := ? ;
+    type T_message is array (1..Taille) of Integer;
+
+    procedure Ecrire (fichier : in String; message : out T_message) is
+
+    begin
+
+        Create (File, Out_File, fichier);
+
+        S := Stream (File);
+        for I in 1..message'last loop
+            T_bit'Write(S, message(I));
+        end loop;
+
+        Close (File);
+
+    end Ecrire;
+
+
+
+    procedure Lire (fichier : in string ; message : out T_message ; Taille : out Integer) is
+
+    begin
+
+        Open(File, In_File, fichier);
+
+        S := Stream(File);
+        Taille := 0;
+        while not End_Of_File(File) loop
+            Bit := T_bit'Input(S);
+            Put("Bit = " & T_Octet'Image(Bit));
+            Put(" '" & Character'Val(Bit) & "'");
+            New_Line;
+            Taille := Taille + 1;
+        end loop;
+
+        Close (File);
+
+    end Lire;
+
+
+end fichier;

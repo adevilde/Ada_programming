@@ -1,0 +1,5 @@
+interface.adb:8:14: warning: file name does not match unit name, should be "interface_utilisateur.adb" [enabled by default]
+interface.adb:8:14: error: missing body for "Afficher_tableH" declared at interface_utilisateur.ads:12
+interface.adb:78:19: error: not fully conformant with declaration at interface_utilisateur.ads:20
+interface.adb:78:19: error: name "Bavard" does not match
+interface.adb:78:42: error: default initialization only allowed for "in" parameters

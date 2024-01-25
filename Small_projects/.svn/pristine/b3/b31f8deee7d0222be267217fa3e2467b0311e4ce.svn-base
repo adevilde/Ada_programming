@@ -1,0 +1,17 @@
+generic
+	type T_code is array(1..lng_code) of mod 2 is limited private;
+	type T_decode is array(1..lng_decode) of mod 2 is limited private;
+
+package types is
+	
+	type T_trad is limited private;
+	type T_tab_code is limited private;
+
+
+
+
+
+private
+
+	type T_trad is array(1..8) of integer is limited private;
+	type T_tab_code is array(1..256) of T_trad is limited private;

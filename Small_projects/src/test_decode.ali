@@ -1,0 +1,164 @@
+V "GNAT Lib v2021"
+M P W=b
+A -O2
+A -gnatA
+A -g
+A -mtune=generic
+A -march=x86-64
+P SS ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_NESTED_FINALIZATION
+RV NO_RECURSION
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_STREAMS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U test_decode%b		test_decode.adb		8105ad26 NE OO SU IL
+W ada%s			ada.ads			ada.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.streams%s		a-stream.adb		a-stream.ali
+Z ada.streams.stream_io%s  a-ststio.adb		a-ststio.ali
+W ada.strings%s		a-string.ads		a-string.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.strings.unbounded%s  a-strunb.adb		a-strunb.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W arbre%s		arbre.adb		arbre.ali
+W decode%s		decode.adb		decode.ali
+W fichier%s		fichier.adb		fichier.ali
+W memoire%s		memoire.adb		memoire.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+
+D ada.ads		20210520051130 76789da1 ada%s
+D a-charac.ads		20210520051127 2d3ec45b ada.characters%s
+D a-chlat1.ads		20210520051127 66457d31 ada.characters.latin_1%s
+D a-except.ads		20210520051127 946f3014 ada.exceptions%s
+D a-finali.ads		20210520051127 bf4f806b ada.finalization%s
+D a-inteio.ads		20210520051127 f64b89a4 ada.integer_text_io%s
+D a-ioexce.ads		20210520051127 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20210520051128 119b8fb3 ada.streams%s
+D a-ststio.ads		20210520051128 d6d358e8 ada.streams.stream_io%s
+D a-string.ads		20210520051128 90ac6797 ada.strings%s
+D a-strmap.ads		20210520051128 5a88892a ada.strings.maps%s
+D a-sttebu.ads		20210520051128 18209c64 ada.strings.text_buffers%s
+D a-strunb.ads		20210520051128 03325227 ada.strings.unbounded%s
+D a-stuten.ads		20210520051128 808c40ad ada.strings.utf_encoding%s
+D a-tags.ads		20210520051129 9eaa38c6 ada.tags%s
+D a-textio.ads		20210520051129 aef4d56d ada.text_io%s
+D a-tiinio.ads		20210520051129 390edddb ada.text_io.integer_io%s
+D a-unccon.ads		20210520051129 0e9b276f ada.unchecked_conversion%s
+D arbre.ads		20220113140800 07818ff6 arbre%s
+D decode.ads		20220114170054 b8c7cc96 decode%s
+D decode.adb		20220114222020 4503c70b decode%b
+D fichier.ads		20220113140503 a3bb2005 fichier%s
+D fichier.adb		20220113135821 ea5f2707 fichier%b
+D interfac.ads		20210520051131 edec285f interfaces%s
+D i-cstrea.ads		20210520051131 e53d8b8e interfaces.c_streams%s
+D memoire.ads		20220113140246 b2be928b memoire%s
+D system.ads		20210520051134 a2da961d system%s
+D s-atocou.ads		20210520051131 b45c2d8d system.atomic_counters%s
+D s-crtl.ads		20210520051131 0ebbdb71 system.crtl%s
+D s-exctab.ads		20210520051131 54135002 system.exception_table%s
+D s-ficobl.ads		20210520051131 078245e4 system.file_control_block%s
+D s-finroo.ads		20210520051131 4ff27390 system.finalization_root%s
+D s-parame.ads		20210520051133 4752c4cb system.parameters%s
+D s-putima.ads		20210520051133 4e095881 system.put_images%s
+D s-secsta.ads		20210520051133 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20210520051133 a7318a92 system.soft_links%s
+D s-stache.ads		20210520051133 a37c21ec system.stack_checking%s
+D s-stalib.ads		20210520051133 472fbca8 system.standard_library%s
+D s-stoele.ads		20210520051133 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20210520051133 ed88f8fb system.storage_elements%b
+D s-stratt.ads		20210520051133 7bdda3fa system.stream_attributes%s
+D s-traent.ads		20210520051133 26a8d361 system.traceback_entries%s
+D s-unstyp.ads		20210520051133 2b077493 system.unsigned_types%s
+D s-wchcon.ads		20210520051134 1b7d22d2 system.wch_con%s
+D test_decode.adb	20220114222020 74cb5226 test_decode%b
+D unchconv.ads		20210520051134 ca2f9e18 unchecked_conversion%s
+G a e
+G c Z b b [test_decode standard 9 11 none]
+G r i none [test_decode standard 9 11 none] [fichier standard 6 9 none]
+G r i none [test_decode standard 9 11 none] [decode standard 10 9 none]
+G r c none [test_decode standard 9 11 none] [to_bits memoire 13 18 none]
+G r c none [test_decode standard 9 11 none] [initialiser arbre 11 19 none]
+G r c none [test_decode standard 9 11 none] [devient_ff arbre 38 19 none]
+G r c none [test_decode standard 9 11 none] [affecter arbre 30 19 none]
+G r c none [test_decode standard 9 11 none] [branche_g arbre 46 18 none]
+G r c none [test_decode standard 9 11 none] [branche_d arbre 50 18 none]
+G r c none [test_decode standard 9 11 none] [terminal arbre 22 18 none]
+G r c none [test_decode standard 9 11 none] [le_byte arbre 62 18 none]
+G r c none [test_decode standard 9 11 none] [est_ff arbre 42 18 none]
+X 1 ada.ads
+16K9*Ada 20e8 45|1r6 1r23 2r6 2r31 7r6 7r33
+X 6 a-inteio.ads
+18K13*Integer_Text_IO[17|46] 45|2w10 2r35
+X 10 a-string.ads
+16K13*Strings 35e16 45|7r10 7r37
+X 13 a-strunb.ads
+83K21*Unbounded 765e26 45|7w18 7r45
+88R9*Unbounded_String<5|43R9> 744e15 45|26r18
+104V13*To_Unbounded_String{88R9} 45|26s38
+X 16 a-textio.ads
+58K13*Text_IO 725e16 45|1w10 1r27
+463U14*Put 45|45s17 47s17 51s17 55s9 57s9
+X 17 a-tiinio.ads
+80U14*Put 45|59s17[6|18] 60s17[6|18] 61s17[6|18]
+X 19 arbre.ads
+4K9*Arbre 84e10 45|3w6 3r17
+8P14*T_arbre 45|24r17
+X 20 decode.ads
+6i9 lng_parcours_infixe{integer} 45|17r40 34r54
+7i9 lng_tab_feuilles{integer} 45|17r66 35r54
+10k9*decode 46e11 45|6w6 17r33 34r47
+16A14 T_parcours_infixe(26|3M14)<integer> 45|38r35[34]
+17A14 T_tab_feuilles(26|6M14)<integer> 45|39r32[34]
+20U19 Tailles 45|56s18[17]
+26U19 Lire 45|44s17[34]
+31U19 ReconstruireH 45|46s17[34]
+40U19 Decoder 45|50s17[34]
+X 22 fichier.ads
+4i9 size{integer} 45|11r42 14r47
+6k9*Fichier 24e12 45|5w6 11r34 14r39
+14V18 Taille{integer} 45|12s39[11]
+X 26 memoire.ads
+1K9*memoire 15e12 45|4w6 4r19
+3M14*T_bit
+6M14*T_byte 45|23r19 32r160 46r63 58r83
+X 45 test_decode.adb
+9U11*test_decode 9b11 63l5 63t16
+11K17 fichier_1[22|6] 12r29
+12i9 length{integer} 14r55
+14K17 fichier_length[22|6] 15r13
+17K17 decode_i[20|10] 56r9
+19a9 file_name_in{string} 56r26 58r23
+20a9 file_name_out{string} 58r37
+21i9 nbu_byte{integer} 56m40 58r52 60r21 61r21
+22i9 lng_parcours_infixe{integer} 56m50 58r62 59r21
+23m9 byte_ff{26|6M14} 56m71 58r90
+24p9 arbre{19|8P14} 46m80 46r80 50r54
+25b9 Est_Gauche{boolean}
+26r9 indent{13|88R9}
+27b9 bavard{boolean}
+32U19 decompression 32b19 32>33 32>60 32>88 32>112 32>147 52l13 52t26 58s9
+32a33 file_name_in{string} 44r22 50r25
+32a60 file_name_out{string} 50r39
+32i88 nbu_byte{integer} 35r84
+32i112 lng_parcours_infixe{integer} 34r84
+32m147 byte_ff{26|6M14} 46r70
+34K25 decode_tailles[20|10] 36r21
+38a17 parcours_infixe{20|16A14[34]} 44m36 46r32
+39a17 tab_feuilles{20|17A14[34]} 44m53 46r49
+40i17 i{integer} 46m87 46r87
+41i17 f{integer} 46m90 46r90
+42b17 rff{boolean} 46m93 46r93
+

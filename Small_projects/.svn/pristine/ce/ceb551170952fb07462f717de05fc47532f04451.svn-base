@@ -1,0 +1,114 @@
+with Ada.Text_IO;            use Ada.Text_IO;
+with Ada.Unchecked_Deallocation;
+
+package body arbre is
+
+	procedure Free is
+		new Ada.Unchecked_Deallocation (Object => T_noeud, Name => T_arbre);
+
+
+	procedure Initialiser(arbre: out T_arbre) is
+	begin
+                arbre := null;
+        end Initialiser; 
+
+
+	function Est_Vide (arbre : T_arbre) return Boolean is
+	begin
+                if arbre = null then
+                        return True;
+                end if;
+                return False;
+	end;
+
+
+	function Terminal (arbre : Tarbre) return Boolean is
+	begin
+		if Est_Vide(arbre.all.branche_g) and Est_Vide(arbre.all.branche_d) then
+			return True;
+		end if;
+		return False;
+	end Terminal;
+
+
+	function Taille (arbre : in T_arbre) return Integer is
+	begin
+                if Est_Vide(arbre) then
+                        return 0;
+                end if;
+                return 1 + Taille(arbre.all.branche_g) + Taille(arbre.all.branche_d);
+	end Taille;
+
+
+	procedure Affecter (arbre 	: 	in out 	T_arbre 		; 
+			    octet 	: 	in 	integer 	:= -1 	; 
+			    freq 	: 	in 	integer 	:= 0	) is
+	begin
+                if Est_Vide(arbre) then
+			arbre := new T_noeud;
+
+                	if octet < 256 and octet > -1 then
+				arbre.all.octet := octet;
+			else
+				arbre.all.octet := -1;
+			end if;
+			
+                        arbre.all.freq := freq;
+		end if;
+
+                if octet < 256 and octet > -1 then
+			arbre.all.octet := octet;
+		end if;
+		
+		if freq > 0 then
+                        arbre.all.freq := freq;
+		end if;
+	end Affecter;
+
+
+	function Branche_g (arbre : in T_arbre) return T_arbre is
+	begin
+		return arbe.all.branche_g;
+	end Branche_g;
+
+
+	function Branche_d (arbre : in T_arbre) return T_arbre is 
+	begin
+		return arbe.all.branche_d;
+	end Branche_d;
+
+
+	function Octet_present (arbre : in T_arbre ; octet : in integer) return Boolean is
+        tmp : T_arbre := arbre;
+	begin
+		if Est_Vide(arbre) then
+			return False;
+		elsif arbe.all.octet = octet then
+			return True;
+		end if;
+		return Octet_present(branche_g) or Octet_present(branche_d);
+	end;
+
+
+	function La_freq (arbre : in T_arbre ; octet : in integer) return integer is
+        tmp : T_arbre := arbre;
+	begin
+		if Est_Vide(arbe) then 
+			return 0;
+		elsif arbre.all.octet = octet then
+			return arbe.all.freq;
+		end if;
+		return La_freq(arbe.all.branche_g) + La_freq(arbe.all.branche_d);
+	end La_freq;
+
+
+	procedure Vider (arbre : in out T_arbre) is
+	begin
+                if not Est_Vide(arbre) then
+                        Vider(arbre.all.branche_g); 
+                        Vider(arbre.all.branche_d); 
+                        Free(arbre);
+                end if;
+	end Vider;
+
+end arbre;

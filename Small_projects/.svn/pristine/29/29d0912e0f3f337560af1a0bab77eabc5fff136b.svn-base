@@ -1,0 +1,380 @@
+with Ada.Streams.Stream_IO; use Ada.Streams.Stream_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Text_IO; use Ada.Text_IO;
+
+with Arbre; use Arbre;
+
+package body code is
+
+	
+	function nb_caractere_unique (file_name : in String; 
+							   tableau : in T_tab_int) return Integer is 
+		
+		nb_carac_unique : Integer := 0;
+		
+	begin
+		
+		neant : T_arbre;
+		file	  : Ada.Streams.Stream_IO.File_Type;
+		S	  : Stream_Access;
+		byte	  : T_byte;
+		j 	  : integer := 1;
+		
+	begin
+		
+		-- Lire le fichier "file_name"
+		Open(file, in_file, file_name);
+		S := Stream(file);
+			for i in 1..255 loop
+				tableau(i) := 0;
+			end loop;
+			
+		while not End_Of_File(File) loop
+			byte := T_byte'Input(S);
+			-- Incrémenter de 1 la fréquence associée à un octet présent dans le fichier
+			
+			j := j + 1;
+		end loop;
+		
+		Close(file);
+		
+		-- Considérer les octets non présents dans le fichier
+		for i in 1..2**8 loop
+			if La_freq(tab_branche(i)) = 0 then
+				-- Affecter à chaque arbre dont la fréquence est nulle une fréquence égale à file_size
+				Affecter(tab_branche(i), T_byte(Le_byte(tab_branche(i))), file_size, neant, neant);
+			end if;
+		end loop;
+		
+	end nb_caractere_unique;
+	
+	
+	
+	
+	
+	
+	-- Initialiser un tableau d'arbre (correspondant à une branche)
+	procedure Initialiser_tab_branche(tab_branche : out T_tab_branche) is
+		neant : T_arbre;
+	begin
+		Initialiser(neant);
+		for i in 0..2**8 loop
+			-- Initialiser chaque arbre de tab_branche
+			Initialiser(tab_branche(i));
+		end loop;
+		-- Le premier arbre du tableau devient le symbole de fin de fichier
+		Devient_ff(tab_branche(0));
+
+	end Initialiser_tab_branche;
+	
+	
+	
+
+	-- Construction de la premier branche de l'arbre correspondant au tableau des fréquences
+	-- de chaque caractère présent dans le fichier texte 
+	procedure Premiere_branche (file_name : in string ; 
+							 tab_branche : in out T_tab_branche) is
+		neant : T_arbre;
+		file	  : Ada.Streams.Stream_IO.File_Type;
+		S	  : Stream_Access;
+		byte	  : T_byte;
+		
+	begin
+		
+		-- Lire le fichier "file_name"
+		Open(file, in_file, file_name);
+		S := Stream(file);
+		Initialiser_tab_branche(tab_branche);
+		
+		while not End_Of_File(File) loop
+			byte := T_byte'Input(S);
+			-- Incrémenter de 1 la fréquence associée à un octet présent dans le fichier
+			Affecter(tab_branche(Integer'Val(byte)), T_byte(byte), La_freq(tab_branche(Integer'Val(byte))) + 1, neant, neant);
+		end loop;
+		
+		Close(file);
+		
+		-- Considérer les octets non présents dans le fichier
+		for i in 1..2**8 loop
+			if La_freq(tab_branche(i)) = 0 then
+				-- Affecter à chaque arbre dont la fréquence est nulle une fréquence égale à file_size
+				Affecter(tab_branche(i), T_byte(Le_byte(tab_branche(i))), file_size, neant, neant);
+			end if;
+		end loop;
+		
+	end Premiere_branche;
+
+	
+	
+	
+
+	-- Calcul de l'indice et de la valeur du minimum de fréquence dans un tableau d'arbre.
+	procedure Mins(tab_branche : in T_tab_branche ; 
+				min1 : out T_arbre ; 
+				imin1 : out integer ; 
+				min2 : out T_arbre ; 
+				imin2 : out integer) is
+		
+		neant : T_arbre;
+		
+	begin
+		
+		-- Initialiser les arbres correspondant aux minima de fréquence
+		Initialiser(neant);
+		Initialiser(min1);
+		Initialiser(min2);
+		
+		-- Remplir les arbres min1 et min2
+		Affecter(min1, T_byte(0), file_size, neant, neant);
+		Affecter(min2, T_byte(0), file_size, neant, neant);
+		
+		for i in 0..2**8 loop
+			
+			-- Si la fréquence du ième arbre du tableau est inférieure ou égale à 
+			-- celle de l'arbre min1, alors on affecte à min2 le 2e minimum soit min1 et 
+			-- à min1 le plus petit des minima soit le ième arbre du tableau
+			if La_freq(tab_branche(i)) <= La_freq(min1) then
+				min2 := min1;
+				imin2 := imin1;
+				min1 := tab_branche(i);
+				imin1 := i;
+				
+			-- Si la fréquence du ième arbre du tableau est inférieure ou égale à 
+			-- celle de l'arbre min2 et supérieure à celle de l'arbre min1, alors
+			-- on affecte à min2 le ième arbre du tableau 
+			elsif La_freq(tab_branche(i)) <= La_freq(min2) then
+				min2 := tab_branche(i);
+				imin2 := i;
+			end if;
+			
+		end loop;
+		
+	end Mins;
+
+
+	
+	
+	-- Construction de l'arbre de Huffman 
+	procedure ArbreH (tab_branche : in out T_tab_branche ; 
+				   arbre : in out T_arbre) is
+		
+		min1 : T_arbre;
+		min2 : T_arbre;
+		imin1 : integer;
+		imin2 : integer;
+		freq : integer;
+		neant : T_arbre;
+		zero : T_byte := T_byte(0);
+		
+	begin
+		Initialiser(neant);
+		--if Est_ff(tab_branche(0)) then put("ff"); else put("pas ff"); end if;
+		loop
+			Initialiser(arbre);
+			-- Chercher les arbres du tableau possèdant les deux plus faibles fréquences
+			Mins(tab_branche, min1, imin1, min2, imin2);
+			freq := La_freq(min1) + La_freq(min2);
+			-- Affecter à l'arbre la nouvelle fréquence et les min1 et min2 en fils_gauche et fils_droit respectivement
+			Affecter(arbre, zero, freq, min1, min2);
+			Initialiser(tab_branche(imin2));
+			Affecter(tab_branche(imin2), zero, file_size, neant, neant);
+			tab_branche(imin1) := arbre;
+			exit when freq >= file_size-1;
+		end loop;
+		
+	end ArbreH;
+
+	
+	
+	
+	-- Initialiser la table de codage de Huffman
+	procedure Initialiser_tab_code (tab_code : in out T_tab_code) is
+		
+	begin
+		
+		for i in 1..256 loop
+			-- Mettre chaque éléments du tableau à 0
+			tab_code(i).length := 0;
+			tab_code(i).value := T_byte(0);
+		end loop;
+		
+	end Initialiser_tab_code;
+
+	
+	
+	
+	-- Constuire la table de codage de Huffman suivant un parcours infixe de l'arbre
+	procedure Tableau_code (arbre : in T_arbre ; 
+						 tab_code : out T_tab_code ; 
+						 c_code : in out integer ; 
+						 c_code_l : in out integer ; 
+						 pi : out T_pi ; 
+						 bpi : out T_bpi ; 
+						 ipi : in out integer ; 
+						 ibpi : in out integer) is
+		cp_arbre : T_arbre := arbre;
+		tmp : T_bits;
+		
+	begin
+		--New_line;
+		ipi := ipi + 1;
+		
+		if Terminal(arbre) then
+			--put(ibpi);
+			ibpi := ibpi + 1;
+			if Est_ff (arbre) then
+				--put("ff trouvé");
+				tab_code(0).value := T_byte(c_code mod 2**8);
+				tab_code(0).length := c_code_l;
+				bpi(0) := T_byte(ibpi);
+				ibpi := ibpi - 1;
+			else
+				tab_code(Integer'Val(Le_byte(arbre)) + 1).value := T_byte(c_code mod 2**8);
+				--put(Integer'Val(Le_byte(arbre)) + 1);
+				tab_code(Integer'Val(Le_byte(arbre)) + 1).length := c_code_l;
+				--tmp := To_bits(T_byte(c_code mod 2**8));
+				--for i in 8 - c_code_l..8 loop
+				---	put(Integer'Val(tmp(i)));
+				--end loop;
+				bpi(ibpi) := T_byte(Le_byte(arbre));
+			end if;
+		
+		else
+			c_code_l := c_code_l + 1;
+			pi(ipi) := T_bit(0);
+			Tableau_code (Branche_g(cp_arbre), tab_code, c_code, c_code_l, pi, bpi, ipi, ibpi);
+			c_code := c_code + 2**c_code_l;
+			pi(ipi) := T_bit(1);
+			Tableau_code(Branche_d(cp_arbre), tab_code, c_code, c_code_l, pi, bpi, ipi, ibpi);
+			c_code_l := c_code_l - 1;
+		end if;
+
+	end Tableau_code;
+
+
+	
+	-- Traduire le fichier pris en entrée à l'aide de la table de codage de Huffman dans un 
+	-- fichier compressé de sortie en format .hff
+	procedure Traduire (file_name_in : in string ; 
+					 file_name_out : in string ; 
+					 tab_code : in T_tab_code ; 
+					 pi : in T_pi ; 
+					 bpi : in T_bpi) is
+		file_in	: Ada.Streams.Stream_IO.File_Type;
+		S_in	     : Stream_Access;
+		file_out	: Ada.Streams.Stream_IO.File_Type;
+		S_out	: Stream_Access;
+		byte	     : T_byte;
+		c_code   : T_byte;
+		c_code_l : integer;
+		bits     : T_bits;
+		tmp      :  T_bits;
+		len 		: integer := 0	;
+		tmp_byte	: T_byte;
+		bits_ff 	: T_bits;
+		c        : integer := 0;
+		
+	begin
+		
+		Create(file_out, out_file, file_name_out);
+		S_out := Stream(file_out);
+
+		for i in 0..bpi'Last loop
+			tmp_byte := T_byte(bpi(i));
+			T_byte'Write(S_out, tmp_byte);
+			c := c + 1;
+		end loop;
+		
+		T_byte'Write(S_out, tmp_byte);
+		c := c + 1;
+		Put(c);
+
+		for i in 1..pi'Last loop
+			tmp(len + 1) := T_bit(pi(i));
+			New_Line;
+			put(integer'val(tmp(len + 1)));
+			if len = 7 then
+				T_byte'Write(S_out, To_byte(tmp));
+				c := c + 1;
+			end if;
+			len := (len + 1) mod 8;
+		end loop;
+		Put(c);
+	
+		Open(file_in, in_file, file_name_in);
+		S_in := Stream(file_in);
+		while not End_Of_File(file_in) loop
+			byte := T_byte'Input(S_in);
+			c_code := tab_code(Integer'Val(byte) + 1).value;
+			c_code_l := tab_code(Integer'Val(byte) + 1).length;
+			bits := To_bits(c_code);
+			for j in 1..c_code_l loop
+				tmp(len + 1) := bits(j);
+				if len = 7 then 
+					T_byte'Write(S_out, To_byte(tmp));
+					c := c + 1;
+				end if;
+				len := (len + 1) mod 8;
+			end loop;
+		end loop;
+		Close(file_in);
+		Put(c);
+
+		bits_ff := To_bits(T_byte(tab_code(0).value));
+		for i in 1..tab_code(0).length  loop
+			tmp(len + 1) := bits_ff(i);
+			if len = 7 then 
+				T_byte'Write(S_out, To_byte(tmp));
+				c := c + 1;
+			end if;
+			len := (len + 1) mod 8;
+		end loop;
+		Put(c);
+
+		T_byte'Write(S_out, To_byte(tmp));
+		--if len /= 0 then
+		--	for i in len..8 - len loop
+		--		tmp(i) := memorie8.T_bit(0);
+		--	end loop;
+		--	T_byte'Write(S_out, To_byte(tmp));
+		--	c := c + 1;
+		--end if;
+		Put(c);
+		Close (file_out);
+		put(integer'val(bpi(0)));
+	end Traduire;
+
+
+	
+	-- Accéder au code de Huffman associé à un octet
+	procedure Acces_tab_code (tab_code : in T_tab_code ; 
+						   byte : in T_byte ; 
+						   val : out T_byte ; 
+						   length : out integer) is
+		i : integer;
+	begin
+		i := Integer'Val(byte);
+		val := tab_code(i + 1).value;
+		length := tab_code(i + 1).length;
+	end Acces_tab_code;
+
+
+	
+	-- Supprimer tous les éléments d'un tableau d'arbre 
+	procedure Free(arbre : in out T_arbre ; 
+				tab_branche : in out T_tab_branche) is
+	begin
+		
+		Vider(arbre);
+		for i in 0..256 loop
+			-- Vider chaque arbre du tableau
+			Vider(tab_branche(i));
+		end loop;
+		
+	end Free;
+
+
+end code;
+
+
+

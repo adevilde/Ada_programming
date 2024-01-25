@@ -1,0 +1,51 @@
+with Arbre; use arbre;
+with memorie;
+with fichier;
+
+generic 
+	file_size : integer;
+	nbu_byte : integer;
+	byte_size : integer := 8;
+	
+
+package code is
+	package memorie8 is new memorie(byte_size => byte_size);
+	use memorie8;
+	package fichier_taille is new fichier(size => file_size, byte_size => byte_size);
+	use fichier_taille;
+
+	type T_trad is limited private;
+	type T_tab_code is limited private;
+	type T_tab_branche is limited private;
+	type T_pi is limited private;
+	type T_bpi is limited private;
+	
+	
+	procedure Premiere_branche (file_name : in string ; tab_branche : in out T_tab_branche);
+
+	procedure ArbreH (tab_branche : in out T_tab_branche ; arbre : in out T_arbre);
+
+	procedure Initialiser_tab_code (tab_code : in out T_tab_code);
+
+	procedure Tableau_code (arbre : in T_arbre ; tab_code : out T_tab_code ; c_code : in out integer ; c_code_l : in out integer ; pi : out T_pi ; bpi : out T_bpi ; ipi : in out integer ; ibpi : in out integer);
+
+	procedure Traduire (file_name_in : in string ; file_name_out : in string ; tab_code : in T_tab_code ; pi : in T_pi ; bpi : in T_bpi);
+
+
+	procedure Acces_tab_code (tab_code : in T_tab_code ; byte : in T_byte ; val : out T_byte ; length : out integer);
+
+	procedure Free (arbre : in out T_arbre ; tab_branche : in out T_tab_branche);
+	
+	
+private
+	Type T_trad is record
+		length : integer;
+		value : T_byte;
+	end record;
+	Type T_tab_code is array (1..256) of T_trad;
+	Type T_tab_branche is array (0..256) of T_arbre;
+	type T_pi is array (1..(nbu_byte - 1) * 2) of T_bit;
+	type T_bpi is array (0..nbu_byte) of T_byte;
+	
+end code;
+

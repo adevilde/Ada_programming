@@ -1,0 +1,206 @@
+V "GNAT Lib v2021"
+A -O2
+A -gnatA
+A -g
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV NO_RECURSION
+RV NO_STREAMS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U decode%b		decode.adb		5fbddc70 NE OO PK GE IL
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.streams%s		a-stream.adb		a-stream.ali
+W ada.streams.stream_io%s  a-ststio.adb		a-ststio.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+
+U decode%s		decode.ads		12fc3213 BN EE NE OO PK GE IL
+W ada%s			ada.ads			ada.ali
+Z ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.streams%s		a-stream.adb		a-stream.ali
+Z ada.streams.stream_io%s  a-ststio.adb		a-ststio.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+Z ada.text_io%s		a-textio.adb		a-textio.ali
+W arbre%s		arbre.adb		arbre.ali
+W fichier%s		fichier.adb		fichier.ali
+W memoire%s		memoire.adb		memoire.ali
+
+D ada.ads		20210520051130 76789da1 ada%s
+D a-except.ads		20210520051127 946f3014 ada.exceptions%s
+D a-inteio.ads		20210520051127 f64b89a4 ada.integer_text_io%s
+D a-ioexce.ads		20210520051127 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20210520051128 119b8fb3 ada.streams%s
+D a-ststio.ads		20210520051128 d6d358e8 ada.streams.stream_io%s
+D a-string.ads		20210520051128 90ac6797 ada.strings%s
+D a-sttebu.ads		20210520051128 18209c64 ada.strings.text_buffers%s
+D a-stuten.ads		20210520051128 808c40ad ada.strings.utf_encoding%s
+D a-tags.ads		20210520051129 9eaa38c6 ada.tags%s
+D a-textio.ads		20210520051129 aef4d56d ada.text_io%s
+D a-tiinio.ads		20210520051129 390edddb ada.text_io.integer_io%s
+D a-unccon.ads		20210520051129 0e9b276f ada.unchecked_conversion%s
+D arbre.ads		20220113140800 07818ff6 arbre%s
+D decode.ads		20220113141250 04780f6b decode%s
+D decode.adb		20220113160721 d5a9d73a decode%b
+D fichier.ads		20220113140503 a3bb2005 fichier%s
+D fichier.adb		20220113135821 ea5f2707 fichier%b
+D interfac.ads		20210520051131 edec285f interfaces%s
+D i-cstrea.ads		20210520051131 e53d8b8e interfaces.c_streams%s
+D memoire.ads		20220113140246 b2be928b memoire%s
+D system.ads		20210520051134 a2da961d system%s
+D s-crtl.ads		20210520051131 0ebbdb71 system.crtl%s
+D s-exctab.ads		20210520051131 54135002 system.exception_table%s
+D s-ficobl.ads		20210520051131 078245e4 system.file_control_block%s
+D s-parame.ads		20210520051133 4752c4cb system.parameters%s
+D s-putima.ads		20210520051133 4e095881 system.put_images%s
+D s-secsta.ads		20210520051133 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20210520051133 a7318a92 system.soft_links%s
+D s-stache.ads		20210520051133 a37c21ec system.stack_checking%s
+D s-stalib.ads		20210520051133 472fbca8 system.standard_library%s
+D s-stoele.ads		20210520051133 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20210520051133 ed88f8fb system.storage_elements%b
+D s-traent.ads		20210520051133 26a8d361 system.traceback_entries%s
+D s-unstyp.ads		20210520051133 2b077493 system.unsigned_types%s
+D s-wchcon.ads		20210520051134 1b7d22d2 system.wch_con%s
+D unchconv.ads		20210520051134 ca2f9e18 unchecked_conversion%s
+G a e
+G c Z s b [decode standard 10 9 none]
+X 1 ada.ads
+16K9*Ada 20e8 16|1r6 1r33 2r6 2r31 3r6 3r23 12r27 60r27 210r35 212r35
+X 3 a-inteio.ads
+18K13*Integer_Text_IO[12|46] 16|2w10 2r35
+X 5 a-stream.ads
+36K13*Streams 87e16 16|1r10 1r37 12r31 60r31 210r39 212r39
+X 6 a-ststio.ads
+39K21*Stream_IO 224e26 16|1w18 1r45 12r39 60r39 210r47 212r47
+42P9*Stream_Access(5|39R9) 16|13r27 61r27 211r35 213r35
+44P9*File_Type 16|12r49 60r49 210r57 212r57
+47n23*In_File{47E9} 16|21r28 66r28 226r32
+47n32*Out_File{47E9} 16|224r35
+68U14*Create 16|224s17
+74U14*Open 16|21s17 66s17 226s17
+80U14*Close 16|50s17 92s17 274s17 275s17
+90V13*End_Of_File{boolean} 16|25s56 68s27 228s47
+92V13*Stream{42P9} 16|22s22 67s22 225s26 227s25
+X 11 a-textio.ads
+58K13*Text_IO 725e16 16|3w10 3r27
+262U14*New_Line 16|173s17 229s25 271s17
+463U14*Put 16|237s53 244s57 249s57
+X 12 a-tiinio.ads
+80U14*Put 16|33s49[3|18] 178s17[3|18] 179s17[3|18] 180s17[3|18] 233s33[3|18]
+. 245s57[3|18] 250s57[3|18] 272s17[3|18] 273s17[3|18]
+X 14 arbre.ads
+4K9*Arbre 84e10 15|1w6 1r17
+8P14*T_arbre 15|35r65 41r94 16|100r65 102r69 104r33 107r25 108r27 164r65
+. 169r25 170r22 171r22 209r94 215r35
+11U19*Initialiser 16|110s17 112s25 115s17 126s33 129s33 152s33 176s17 177s17
+14U19*Remplire 16|127s33
+22V18*Terminal{boolean} 16|148s55 240s44
+30U19*Affecter 16|128s33 137s41 190s33 201s25
+38U19*Devient_ff 16|135s41 186s33
+42V18*Est_ff{boolean} 16|243s52
+46V18*Branche_g{8P14} 16|195s31 259s74
+50V18*Branche_d{8P14} 16|151s50 199s31 262s74
+62V18*Le_byte{21|6M14} 16|242s64 245s73 250s73
+66U19*Vider 16|156s17
+X 15 decode.ads
+6i9 lng_parcours_infixe{integer} 44r46 16|232r33 238r45 256r49 273r21
+7i9 lng_tab_feuilles{integer} 45r46 16|232r59 238r71 256r75 272r21
+10k9*decode 6z9 7z9 44E14 47l5 47e11 16|5b14 278l5 278t11
+12K17*fichier_0[17|6]
+14A14*T_parcours_infixe(21|3M14) 27r57 31r65 44c14 16|57r57 96r65 160r65
+15A14*T_tab_feuilles(21|6M14) 28r57 32r65 45c14 16|58r57 97r65 161r65
+18U19*Tailles 18>28 19<28 20<28 21<28 16|7b19 51l13 51t20
+18a28 file_name{string} 16|7b28 21r37
+19i28 nbu_byte{integer} 16|8b28 20m17 25r28 29r28 34r52 35r85 41r71 42m33
+20i28 lng_parcours_infixe{integer} 16|9b28 35m57
+21m28 byte_ff{21|6M14} 16|10b28 23m17
+24U19*Lire 24>25 25>25 26>25 27<25 28<25 16|54b19 93l13 93t17
+24a25 file_name{string} 16|54b25 66r37
+25i25 nbu_byte{integer} 16|55b25 68r53 70r44 78r31 78r57 81r53 86r74
+26i25 lng_parcours_infixe{integer} 16|56b25 68r64 78r72 81r74
+27a25 parcours_infixe{14A14} 16|57b25 86m49
+28a25 tab_feuilles{15A14} 16|58b25 77m33
+31U19*ReconstruireH 31>34 32>34 33>34 34>34 35<34 36=34 37=34 38=34 16|160b19
+. 196s25 200s25 205l13 205t26
+31a34 parcours_infixe{14A14} 16|160b34 180r33 182r32 196r39 200r39
+32a34 tab_feuilles{15A14} 16|161b34 190r56 196r56 200r56
+33i34 lng_parcours_infixe{integer} 16|162b34 178r21 181r25 196r70 200r70
+34m34 byte_ff{21|6M14} 16|163b34 185r44 196r91 200r91
+35p34 arbre{14|8P14} 16|164b34 177m29 186m44 190m42 195m41 195r41 199m41
+. 199r41 201m34
+36i34 i{integer} 16|165b34 179r21 180r49 181r20 182r48 194m25 194r30 196m104
+. 198m25 198r30 200m104
+37i34 f{integer} 16|166b34 185r28 190r69 191m33 191r38 196m107 200m107
+38b34 rff{boolean} 16|167b34 185r57 187m33 196m110 200m110
+41U19*Decoder 41>28 41>55 41>83 16|209b19 276l13 276t20
+41a28 file_name_in{string} 16|209b28 226r41
+41a55 file_name_out{string} 16|209b55 224r45
+41p83 arbre{14|8P14} 16|209b83 215r76 252r66
+X 16 decode.adb
+12p17 file{6|44P9} 21m22 21r22 22r29 25r68 50m24 50r24
+13p17 S{6|42P9} 22m17 23r41 24r39 26r46
+14m17 byte{21|6M14} 26m25 27r41 41r40 44r34
+15m17 bytep{21|6M14} 24m17 41r60 44m25
+16i17 i{integer} 35r81 42r45 45m25 45r30
+17i17 nb_ones{integer} 25r40 32m49 32r60 33r53 34r64
+18a17 bits{21|9A14} 27m25 31r56
+30i37 j{integer} 31r61 35r101
+60p17 file{6|44P9} 66m22 66r22 67r29 68r39 92m24 92r24
+61p17 S{6|42P9} 67m17 69r46
+62m17 byte{21|6M14} 69m25 77r52 79r49
+63i17 i{integer} 68r48 70r33 70r39 77r46 78r46 78r52 81r49 86r70 90m25 90r30
+64a17 bits{21|9A14} 79m33 86r97
+80i37 j{integer} 81r69 86r91 86r102
+96U19 ReconstruireHold 96b19 96>37 97>34 98>34 99>34 100<34 157l13 157t29
+96a37 parcours_infixe{15|14A14} 123r28
+97a34 tab_feuilles{15|15A14} 137r72
+98i34 lng_parcours_infixe{integer} 102r45 111r29 119r29
+99m34 byte_ff{21|6M14} 134r52
+100p34 arbre{14|8P14} 115m29 155m17
+102A22 T_en_cours(14|8P14)<integer> 103r28
+103a17 en_cours{102A22} 112m37 112r37 124m33 145r58 148r64 155r26
+104p17 noeud_courant{14|8P14} 124r48 128m42 128r42 129m45 129r45 130m33 135m52
+. 135r52 137m50 137r50 145m41 151m33 151m60 151r60 152m45 152r45
+105i17 j{integer} 142m33 145r67 146m41 146r46 148r73
+106i17 k{integer} 134r36 137r85 139m41 139r46
+107p17 neant{14|8P14} 110m29 110r29 128r80 137r93 137r100 156m23 156r23
+108p17 nouveau{14|8P14} 126m45 126r45 127m42 127r42 128r71 130r50
+111i21 i{integer} 112r46
+119i21 i{integer} 123r44 124r42 142r38
+169p17 neant{14|8P14} 176m29 176r29 190r77 190r84
+170p17 bg{14|8P14} 195m25 196m100 196r100 201r55
+171p17 bd{14|8P14} 199m25 200m100 200r100 201r59
+210p17 file_out{6|44P9} 224m25 224r25 225r34 274m23 274r23
+211p17 S_out{6|42P9} 225m17 248r70
+212p17 file_in{6|44P9} 226m23 226r23 227r33 228r59 275m23 275r23
+213p17 S_in{6|42P9} 227m17 230r53
+214a17 bits{21|9A14}
+215p17 noeud_courant{14|8P14} 240r53 242r72 243r59 245r81 250r81 252m49 259m57
+. 259m84 259r84 262m57 262m84 262r84
+216i17 lng_code{integer}
+217m17 byte{21|6M14} 242m49 248r77
+218b17 fin_fichier{boolean} 228r27 236r57 237r36
+219i17 i{integer} 238r36 267m33 267r38
+220a17 tmp{21|9A14} 230m25 257r52
+221i17 j{integer} 236r36 236r42 238r40 257r56 266m33 266r38 269m25
+222i17 c{integer} 231m25 231r30 232r28 233r37 256r44
+X 17 fichier.ads
+4i9 size{integer} 15|12r43
+6k9*Fichier 15|3w6 12r34 17|24e12
+X 21 memoire.ads
+1K9*memoire 15|2w6 2r19 21|15e12
+3M14*T_bit 15|44r76
+6M14*T_byte 15|21r55 34r65 45r76 16|10r55 14r27 15r27 23r28 24r26 26r33 62r27
+. 69r33 99r65 128r57 137r65 163r65 190r49 201r41 217r35 230r40 242r57 248r57
+9A14*T_bits(3M14)<integer> 16|18r27 64r27 214r35 220r35
+13V18*To_bits{9A14} 16|27s33 79s41 230s32
+

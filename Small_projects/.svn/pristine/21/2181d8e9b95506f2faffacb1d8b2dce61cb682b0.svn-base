@@ -1,0 +1,33 @@
+generic
+	lng_parcours_infixe 	: integer;
+	lng_tab_feuilles 	: integer;
+	lng_code 		: integer;
+
+
+package decode is
+	type T_octet 		is limited private;
+	type T_parcours_infixe 	is limited private;
+	type T_tab_feuilles 	is limited private;
+	type T_code 		is limited private;
+
+
+	Procedure Lire (fichier 	: in 	string 		; 
+			code 		: out 	T_code 		; 
+			tab_code 	: out 	T_tab_code 	; 
+			lng_decode 	: out 	integer		);
+
+	Procedure ReconstruireH (parcours_infixe 	: in 	T_parcours_infixe	;
+				 tab_feuilles 		: in 	T_tab_feuille 		;
+				 lng_parcours_infixe 	: in 	integer 		; 
+				 arbre 			: out 	T_arbre			);
+
+	Procedure Decoder (code : in T_code ; arbre : in T_arbre ; file_name : in integer);
+
+
+private
+	type T_octet 		is array (1..8) 			of integer;
+	type T_parcours_infixe 	is array (1..lng_parcours_infixe) 	of integer;
+	type T_tab_feuilles 	is array (1..lng_tab_feuilles) 		of T_octet;
+	type T_code 		is array (1..lng_code) 			of integer;
+
+end decode;

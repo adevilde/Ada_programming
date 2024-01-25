@@ -1,0 +1,141 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with arbre; use arbre;
+with memoire; use memoire;
+with fichier;
+with code;
+
+package body interface_utilisateur is
+
+	tab_code : T_tab_code;
+
+	procedure Afficher_tableH (tab_code : in T_tab_code; Bavard : in Boolean) is
+
+		codeH : T_bits;
+		val : T_byte;
+		length : Integer;
+
+	begin
+
+		if Bavard = True then
+
+			for i in 0..255 loop
+				Acces_tab_code(tab_code, T_byte(i), val, length);
+				if length /= 0 then
+					Put("'");
+					-- Afficher symbole correspondant au code
+					Put(Character'Val(i));
+					Put("' --> ");
+
+					codeH := To_bits(T_byte(val));
+					for j in 8-length..8 loop
+						Put(Integer'Val(codeH(j)),1);
+					end loop;
+				end if;
+				New_Line;
+			end loop;
+		end if;
+
+	end Afficher_tableH;
+
+
+
+	procedure Afficher_arbreH (Arbre : in T_arbre; Bavard : in Boolean) is
+
+		taille : Integer;
+		compteur : Integer := 1;
+
+	begin
+
+		if Bavard = True then
+
+			if not Est_Vide(Arbre) and not Terminal(Arbre) then
+				Put("(");
+				Put(La_freq(Arbre));
+				Put(")");
+				New_Line;
+
+				branche_d := Branche_d(Arbre);
+				if not Est_Vide(branche_d) then
+					compteur := compteur + 1;
+					Put("\--0--");
+					Afficher_arbreH(branche_d);
+				end if;
+
+				branche_g := Branche_g(Arbre);
+				if not Est_Vide(branche_g) then
+					for i in 1..compteur loop
+						Put("|");
+					end loop;
+					Put("\--1--");
+					Afficher_arbreH(branche_g);
+				end if;
+
+
+			elsif Terminal(Arbre) then
+				Put("(");
+				Put(La_freq(Arbre));
+				Put(") '");
+				-- Afficher symbole correspondant au byte
+				Put(chr(Le_byte(Arbre)));
+				Put("'");
+
+			else
+				New_Line;
+			end if;
+
+		end if;
+
+
+	end Afficher_arbreH;
+
+
+
+
+
+
+
+	procedure interface_utilisateur (Bavard : out Boolean := False ;
+								  Compression : in Boolean) is
+
+	begin
+
+		case Argument_Count is
+
+		when 0 => if Compression then
+				Put("Usage : ./compresser nom_fichier");
+			else
+				Put("Usage : ./decompresser nom_fichier");
+			end if;
+
+		when 1 => if Compression then
+					compresser(nom_fichier);
+				else
+					decompresser(nom_fichier);
+			end if;
+
+		when 2 => if Argument(1) = "-b" or Argumen(1) = "--bavard" then
+				Bavard := True;
+				if Compression then
+					compresser(nom_fichier);
+				else
+					decompresser(nom_fichier);
+				end if;
+			else
+				raise Option_inconnue;
+			end if;
+		when others =>
+				raise Trop_arguments;
+		end case;
+
+
+
+	exception
+			when Option_inconnue => Put("L'option est inconnue");
+			when Trop_arguments => Put("Il y a trop d'arguments. Il faut en mettre au plus 2.");
+
+
+
+	end interface_utilisateur;
+
+end interface_utilisateur;

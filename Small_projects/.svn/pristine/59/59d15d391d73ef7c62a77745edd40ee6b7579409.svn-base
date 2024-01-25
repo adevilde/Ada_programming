@@ -1,0 +1,159 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with arbre; use arbre;
+with memoire; use memoire;
+with fichier;
+with code;
+
+
+procedure test_interface is
+
+	package fichier_1 is new fichier(size => 1);
+	length : integer := fichier_1.Taille("exemple_fichier.in");
+
+	package fichier_length is new fichier(size => length);
+	use fichier_length;
+
+	package code_0 is new code(file_size => length, nbu_byte => 0);
+
+	package code_length is new code(file_size => length, nbu_byte => code_0.nb_caractere_unique("exemple_fichier.in"));
+	use code_length;
+
+	tab_branche : T_tab_branche;
+	arbre : T_arbre;
+	tab_code : T_tab_code;
+	c_code : integer := 0;
+	c_code_l : integer := 0;
+	c : integer := 0;
+	pi : T_pi;
+	bpi : T_bpi;
+	ipi : integer := 0;
+	ibpi : integer := 0;
+	Bavard : Boolean;
+	indent : Unbounded_String := To_Unbounded_String("");
+
+
+	procedure Afficher_arbreH (Arbre : in out T_arbre; indent : in Unbounded_String ; Est_Gauche : in Boolean ; Bavard : in Boolean) is
+
+		compteur : Integer := 1;
+		Branche_droite : T_arbre;
+		Branche_gauche : T_arbre;
+		new_indent : Unbounded_String := indent;
+	begin
+
+		if Bavard = True then
+
+			if not Est_Vide(Arbre) then
+
+				if indent /= "" then
+					Put(To_String(indent));
+					Put("\--");
+					if Est_Gauche then
+						Put("0--");
+					else
+						Put("1--");
+					end if;
+				end if;
+
+				Put("(");
+				Put(La_freq(Arbre),1);
+				Put(")");
+
+				if Terminal(Arbre) then
+					Put(" '");
+					Put(Character'Val(Le_byte(Arbre)));
+					Put("'");
+				end if;
+
+				New_Line;
+
+				if indent = "" then
+					Append(new_indent, " ");
+				elsif Est_Gauche then
+					Append(new_indent, "|     ");
+				else
+					Append(new_indent, "      ");
+				end if;
+
+				if not Terminal(Arbre) then
+					Branche_gauche := Branche_g(Arbre);
+					Afficher_arbreH(Branche_gauche, new_indent, True, Bavard);
+
+					Branche_droite := Branche_d(Arbre);
+					Afficher_arbreH(Branche_droite, new_indent, False, Bavard);
+				end if;
+			else
+				New_Line;
+			end if;
+
+		end if;
+
+
+	end Afficher_arbreH;
+
+
+
+
+	procedure Afficher_tableH (tab_code : in T_tab_code; Bavard : in Boolean) is
+
+		codeH : T_bits;
+		val : T_byte;
+		length : Integer;
+
+	begin
+
+		if Bavard = True then
+
+			for i in 1..255 loop
+				Acces_tab_code(tab_code, T_byte(i), val, length);
+				if length /= 0 then
+					Put("'");
+					-- Afficher symbole correspondant au code
+					Put(Character'Val(i));
+					Put("' --> ");
+
+					codeH := To_bits(val);
+					for j in 1..length loop
+						Put(Integer'Val(codeH(j)),1);
+					end loop;
+				New_Line;
+				end if;
+			end loop;
+		end if;
+
+	end Afficher_tableH;
+
+
+
+
+
+
+
+
+begin
+	Premiere_branche("exemple_fichier.in", tab_branche);
+	Put("Premiere_branche ok");
+	ArbreH(tab_branche, arbre);
+	Put("ArbreH ok");
+	--Put(Taille(arbre));
+	Put("Taille arbre finie");
+	Initialiser_tab_code(tab_code);
+	Tableau_code(arbre, tab_code, c_code, c_code_l, pi, bpi, ipi, ibpi);
+	--for i in 0..255 loop
+		--Acces_tab_code(tab_code, code_length.memorie8.T_byte(i), val, len);
+		--bits := To_bits(memorie8.T_byte(val));
+		--if len /= 0 then New_line; c := c+1 ; end if;
+		--for j in 1..len loop
+			--put(integer'val(bits(j)));
+		--end loop;
+	--end loop;
+	--New_line;
+	--Put(c);
+	Put_Line("Tableau_code ok");
+	Bavard := True;
+	Afficher_arbreH(Arbre, indent, False, Bavard);
+	New_Line;
+	Afficher_tableH(tab_code, Bavard);
+	Put("Arbre Huffman code OK");
+end test_interface;

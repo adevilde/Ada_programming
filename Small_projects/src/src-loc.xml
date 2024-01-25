@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_file>
+    <file_marker column=" 5" line=" 16" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/fichier.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 21" line=" 10" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decode.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 15" line=" 12" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/fichier.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 12" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/exemple_es.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 2" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/types.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 13" line=" 49" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/test_interface.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 72" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/code.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 6" line=" 6" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/test_code.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 67" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/arbre.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 81" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/arbre.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 69" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/compresser.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 16" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/memoire.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decompresser.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 21" line=" 10" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decode.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 264" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/code.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/code.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decompresser.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/test_interface.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decompresser.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decode.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decompresser.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decode.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 22" line=" 45" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decode.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/affichage.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/interface_utilisateur.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/interface_utilisateur.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 55" line=" 51" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decode.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decode.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decode.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/compresser.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/decompresser.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 50" line=" 86" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/compresser.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 6" line=" 6" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/test_code.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/interface_utilisateur.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/interface_utilisateur.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/test_interface.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 13" line=" 49" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/test_interface.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 6" line=" 6" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/test_code.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 50" line=" 49" >
+      <vfs_project>/home/adevilde/1A/PIM/Projet_2020_2021/src/src.gpr</vfs_project>
+      <vfs_file>/home/adevilde/1A/PIM/Projet_2020_2021/src/test_interface.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

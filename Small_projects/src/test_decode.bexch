@@ -1,0 +1,23 @@
+[GENERATED OBJECT FILE]
+b__test_decode.o
+[PROJECT FILES]
+/home/adevilde/1A/PIM/Projet_2020_2021/src/default.gpr
+20220114102718 c5eaf6a666a5f9b919f8a4be0c7be312
+[BOUND OBJECT FILES]
+/home/adevilde/1A/PIM/Projet_2020_2021/src/memoire.o
+/home/adevilde/1A/PIM/Projet_2020_2021/src/fichier.o
+/home/adevilde/1A/PIM/Projet_2020_2021/src/arbre.o
+/home/adevilde/1A/PIM/Projet_2020_2021/src/decode.o
+/home/adevilde/1A/PIM/Projet_2020_2021/src/test_decode.o
+[GENERATED SOURCE FILES]
+b__test_decode.ads
+b__test_decode.adb
+b__test_decode.ali
+[RESULTING OPTIONS]
+-L/home/adevilde/1A/PIM/Projet_2020_2021/src/
+-L/home/adevilde/1A/PIM/Projet_2020_2021/src/
+-L/mnt/n7fs/ens/tp_cregut/GNAT/2021/lib/gcc/x86_64-pc-linux-gnu/10.3.1/adalib/
+-static
+-static-libgcc
+/mnt/n7fs/ens/tp_cregut/GNAT/2021/lib/gcc/x86_64-pc-linux-gnu/10.3.1/adalib/libgnat.a
+-ldl

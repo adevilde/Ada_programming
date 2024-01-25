@@ -1,0 +1,72 @@
+with Ada.Streams.Stream_IO; use Ada.Streams.Stream_IO;
+
+package body Fichier is
+
+
+	Procedure Creer (file_name : in string) is
+		file	: Ada.Streams.Stream_IO.File_Type		;
+	begin
+		Create (file, Out_file, file_name);
+	end Creer;
+
+
+	Function Taille (file_name : in string) return integer is
+		file	: Ada.Streams.Stream_IO.File_Type		;
+		S	: Stream_Access					;
+		bit	: T_bit						;
+		c 	: integer				:= 0	;
+	begin
+		Open(file, In_File, file_name);
+		S := Stream(File);
+		while not End_Of_File(File) loop
+			bit := T_bit'Input(S);
+			c := c + 1;
+		end loop;
+		Close (File);
+		return c;
+	end Taille;
+
+
+	Procedure Lire (file_name : in string ; tab : out T_tab) is
+		file	: Ada.Streams.Stream_IO.File_Type		;
+		S	: Stream_Access					;
+		bit	: T_bit						;
+		i 	: integer				:= 1	;
+	begin
+		Open(file, In_File, file_name);
+		S := Stream(file);
+		while not End_Of_File(File) loop
+			bit := T_bit'Input(S);
+			tab(i) := bit;
+			i := i + 1;
+		end loop;
+		Close (file);
+	end Lire;
+
+
+	Procedure Ecrire (file_name : in string ; tab : in T_tab) is
+		file	: Ada.Streams.Stream_IO.File_Type		;
+		S	: Stream_Access					;
+	begin
+		Create (file, Out_file, file_name);
+		S := Stream (file);
+		for i in 1..tab'last loop
+			T_bit'Write(S, tab(i));
+		end loop;
+		Close (file);
+	end Ecrire;
+
+
+	Procedure Ajouter (file_name : in string ; bit : in integer) is
+		file	: Ada.Streams.Stream_IO.File_Type		;
+		S	: Stream_Access					;
+	begin
+		Open(file, In_File, file_name);
+		S := Stream(file);
+		T_bit'Write(S, T_bit(bit));
+		Close (file);
+	end Ajouter;
+		
+
+end Fichier;
+

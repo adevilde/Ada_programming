@@ -1,0 +1,15 @@
+Encoder :
+
+Dans R1 : il manque la mention du fichier, "Traduire le texte et l'écrire dans..." par exemple. En revanche, dans le décodage, c'est bien fait.
+Dans R2 : Comment “Construire le tableau de codage” ? Je suppose que c'est volontairement vide car vous y réfléchissez.
+Dans les R4, pensez à indenter à l'intérieur des blocs "Tant que".
+Dans R3 : Comment "Déterminer si l'octet est présent dans le tableau" ? => Attention, vous mettez present à false au début, et Si tableau(i) == Octet, vous le mettez à... false à nouveau. Puis en sortie de boucle vous le mettez à true dans tous les cas. À reprendre. Pensez aussi à indenter l'intérieur des blocs Pour.
+Le R3 : Comment "Parcourir récursivement l'arbre" est incomplet. Qu'appelez-vous parcourir récursivement l'arbre ? Est-ce un parcours infixe ? Dans quel but faites-vous ce parcours ? Il faudrait que ça apparaisse dans l'intitulé de l'action complexe, par exemple "Faire un parcours infixe de l'arbre pour ...".
+
+Décoder :
+
+Pas de remarque particulière.
+
+Il faudrait regrouper les déclarations de type, T_Octet et T_Code. Sauf erreur de ma part, il manque la déclaration de l'arbre.
+
+Il manque le tableau d'évaluation.

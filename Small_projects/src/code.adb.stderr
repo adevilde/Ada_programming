@@ -1,0 +1,1 @@
+code.adb:135:42: warning: "imin1" may be referenced before it has a value [enabled by default]

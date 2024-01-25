@@ -1,0 +1,231 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Command_Line; use Ada.Command_Line;
+with arbre; use arbre;
+with memoire; use memoire;
+
+with fichier;
+with code;
+
+
+procedure compresser is
+
+	package fichier_1 is new fichier(size => 1);
+	length : integer;
+
+	package fichier_length is new fichier(size => length);
+	use fichier_length;
+
+	package code_0 is new code(file_size => length, nbu_byte => 0);
+	nb_unique : integer;
+
+	package code_length is new code(file_size => length, nbu_byte => nb_unique);
+	use code_length;
+
+	nom_fichier : Unbounded_String;
+	Compression : Boolean := True;
+	Bavard : Boolean := False;
+	tab_branche : T_tab_branche;
+	arbre : T_arbre;
+	tab_code : T_tab_code;
+	c_code : integer := 0;
+	c_code_l : integer := 0;
+	c : integer := 0;
+	pi : T_pi;
+	bpi : T_bpi;
+	ipi : integer := 0;
+	ibpi : integer := 0;
+	indent : Unbounded_String;
+
+
+	Option_inconnue : exception;
+	Trop_arguments : exception;
+	Pas_arguments : exception;
+
+
+ procedure Afficher_tableH (tab_code : in T_tab_code) is
+
+ 	codeH : T_bits;
+ 	val : T_byte;
+ 	length : Integer;
+
+ begin
+
+ 	for i in 0..255 loop
+ 		Acces_tab_code(tab_code, T_byte(i), val, length);
+ 		if length /= 0 then
+ 			Put("'");
+			-- Afficher symbole correspondant au code
+			if i = 0 then
+				Put("/$");
+			elsif i = 10 then
+				Put("/n");
+			else
+				Put(Character'Val(i));
+			end if;
+			Put("' --> ");
+
+ 			codeH := To_bits(val);
+ 			for j in length..8 loop
+ 				Put(Integer'Val(codeH(j)),1);
+ 			end loop;
+ 			New_Line;
+ 		end if;
+ 	end loop;
+
+ end Afficher_tableH;
+
+
+
+
+ procedure Afficher_arbreH (Arbre_huff : in out T_arbre;
+ 						indent : in Unbounded_String ;
+ 						Est_Gauche : in Boolean) is
+
+ 	Branche_droite : T_arbre;
+ 	Branche_gauche : T_arbre;
+ 	new_indent : Unbounded_String := indent;
+
+ begin
+
+ 	if not Est_Vide(Arbre_huff) then
+ 		if indent /= "" then
+ 			Put(To_String(indent));
+ 			Put("\--");
+ 			if Est_Gauche then
+ 				Put("0--");
+ 			else
+ 				Put("1--");
+ 			end if;
+ 		end if;
+
+ 		Put("(");
+ 		Put(La_freq(Arbre_huff),1);
+ 		Put(")");
+
+ 		if Terminal(Arbre_huff) then
+			Put(" '");
+			if Integer'Val(Le_byte(Arbre_huff)) = 10 then
+				Put("/n'");
+			elsif Est_ff(Arbre_huff) then
+				Put("/$'");
+			else
+				Put(Character'Val(Le_byte(Arbre_huff)));
+				Put("'");
+			end if;
+ 		end if;
+
+ 		New_Line;
+
+ 		if indent = "" then
+ 			Append(new_indent, " ");
+ 		elsif Est_Gauche then
+ 			Append(new_indent, "|     ");
+ 		else
+ 			Append(new_indent, "      ");
+ 		end if;
+
+ 		if not Terminal(Arbre_huff) then
+ 			Branche_gauche := Branche_g(Arbre_huff);
+ 			Afficher_arbreH(Branche_gauche, new_indent, True);
+
+ 			Branche_droite := Branche_d(Arbre_huff);
+ 			Afficher_arbreH(Branche_droite, new_indent, False);
+ 		end if;
+ 	else
+ 		New_Line;
+ 	end if;
+
+ end Afficher_arbreH;
+
+
+
+
+ procedure Affichage (nom_fichier : in String;
+ 				  tab_code : in T_tab_code;
+ 				  arbre_huff : in out T_arbre;
+ 				  indent : in Unbounded_String;
+ 				  Bavard : in Boolean) is
+
+ begin
+
+ 	if Bavard then
+ 		Put_Line("Voici l'arbre de Huffman");
+ 		Afficher_arbreH(arbre_huff, indent, False);
+ 		New_Line;
+ 		Put_Line("Voici la table de Huffman");
+ 		Afficher_tableH(tab_code);
+ 		New_Line;
+ 		Put("Le nombre de caractère unique dans le fichier est ");
+ 		Put(nb_caractere_unique(nom_fichier),1);
+ 		New_Line;
+ 		Put("La taille du fichier initiale était ");
+ 		Put(Length,1);
+ 		New_Line;
+ 		Put("La taille du fichier compressé est ");
+ 		Put(fichier_length.Taille(nom_fichier),1);
+ 	end if;
+
+ end Affichage;
+
+
+
+
+
+ procedure gestion_ligne_commande (nom_fichier : in out Unbounded_String;
+ 							  Compression : in Boolean;
+ 							  Bavard : out Boolean) is
+
+ 	indent : Unbounded_String;
+
+	begin
+		Bavard := False;
+
+		case Argument_Count is
+		when 0 => raise Pas_arguments;
+
+ 	when 2 => if Argument(1) = "-b" or Argument(1) = "--bavard" then
+ 			Bavard := True;
+ 	else
+ 			raise Option_inconnue;
+			end if;
+
+	when 1 => nom_fichier := To_Unbounded_String (Argument (1));
+
+ 	when others =>
+ 			raise Trop_arguments;
+ 	end case;
+ end gestion_ligne_commande;
+
+
+
+
+
+begin
+	gestion_ligne_commande(nom_fichier, compression, Bavard);
+
+	length := fichier_1.Taille(To_String (nom_fichier));
+	nb_unique := code_0.nb_caractere_unique(To_String(nom_fichier));
+
+	Initialiser_tab_branche(tab_branche);
+	Premiere_branche(To_String(nom_fichier), tab_branche);
+	ArbreH(tab_branche, arbre);
+
+	Initialiser_tab_code(tab_code);
+	Tableau_code(arbre, tab_code, c_code, c_code_l, pi, bpi, ipi, ibpi);
+	Traduire(To_String(nom_fichier), To_String(nom_fichier) & ".hff", tab_code, pi, bpi);
+	Affichage(To_String(nom_fichier), tab_code, arbre, indent, Bavard);
+	Free(arbre, tab_branche);
+
+ exception
+	when Option_inconnue => Put_Line("L'option est inconnue");
+	when Trop_arguments => Put_Line("Il y a trop d'arguments. Il faut en mettre au plus 2.");
+	when Name_Error => Put_Line("Ce fichier est inexistant");
+	when Pas_arguments =>
+		if Compression then
+ 			Put_Line("Usage : ./compresser nom_fichier");
+ 		else
+ 			Put_Line("Usage : ./decompresser nom_fichier");
+ 		end if;
+end compresser;

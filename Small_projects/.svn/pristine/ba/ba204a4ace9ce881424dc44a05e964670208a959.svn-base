@@ -1,0 +1,177 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with arbre; use arbre;
+with memorie;
+with fichier;
+with code;
+
+package body interface_utilisateur is
+
+	package memorie8 is new memorie(byte_size=>8);
+	use memorie8;
+
+	tab_code : T_tab_code;
+
+
+
+	procedure Afficher_tableH (tab_code : in T_tab_code; Bavard : in Boolean) is
+
+		codeH : T_bits;
+		val : code_length.memorie8.T_byte;
+		length : Integer;
+
+	begin
+
+		if Bavard = True then
+
+			for i in 0..255 loop
+				Acces_tab_code(tab_code, code_length.memorie8.T_byte(i), val, length);
+				if length /= 0 then
+					Put("'");
+					-- Afficher symbole correspondant au code
+					Put(Character'Val(i));
+					Put("' --> ");
+
+					codeH := To_bits(test_interface.memorie8.T_byte(val));
+					for j in 8-length..8 loop
+						Put(Integer'Val(codeH(j)),1);
+					end loop;
+				end if;
+				New_Line;
+			end loop;
+		end if;
+
+	end Afficher_tableH;
+
+
+
+	procedure Afficher_arbreH (Arbre : in T_arbre; Bavard : in Boolean) is
+
+		taille : Integer;
+		compteur : Integer := 1;
+
+	begin
+
+		if Bavard = True then
+
+			if not Est_Vide(Arbre) and not Terminal(Arbre) then
+				Put("(");
+				Put(La_freq(Arbre));
+				Put(")");
+				New_Line;
+
+				branche_d := Branche_d(Arbre);
+				if not Est_Vide(branche_d) then
+					compteur := compteur + 1;
+					Put("\--0--");
+					Afficher_arbreH(branche_d);
+				end if;
+
+				branche_g := Branche_g(Arbre);
+				if not Est_Vide(branche_g) then
+					for i in 1..compteur loop
+						Put("|");
+					end loop;
+					Put("\--1--");
+					Afficher_arbreH(branche_g);
+				end if;
+
+
+			elsif Terminal(Arbre) then
+				Put("(");
+				Put(La_freq(Arbre));
+				Put(") '");
+				-- Afficher symbole correspondant au byte
+				Put(chr(Le_byte(Arbre)));
+				Put("'");
+
+			else
+				New_Line;
+			end if;
+
+		end if;
+
+
+	end Afficher_arbreH;
+
+
+
+	procedure Construire_Exemple_Sujet (Annuaire : out T_TH; Bavard: Boolean := False) is
+
+	begin
+		Initialiser (Annuaire);
+		pragma Assert (Est_Vide (Annuaire));
+		pragma Assert (Taille (Annuaire) = 0);
+
+		for I in 1..Nb_Cles loop
+			Enregistrer (Annuaire, Cles (I), Donnees (I));
+
+			if Bavard then
+				Put_Line ("Après insertion de la clé " & Cles (I));
+				Afficher (Annuaire); New_Line;
+			else
+				null;
+			end if;
+
+			pragma Assert (not Est_Vide (Annuaire));
+			pragma Assert (Taille (Annuaire) = I);
+
+			for J in 1..I loop
+				pragma Assert (La_Donnee (Annuaire, Cles (J)) = Donnees (J));
+			end loop;
+
+			for J in I+1..Nb_Cles loop
+				pragma Assert (not Cle_Presente (Annuaire, Cles (J)));
+			end loop;
+
+		end loop;
+	end Construire_Exemple_Sujet;
+
+
+
+
+
+	procedure interface_utilisateur (Bavard : out Boolean := False ;
+								  Compression : in Boolean) is
+
+	begin
+
+		case Argument_Count is
+
+		when 0 => if Compression then
+				Put("Usage : ./compresser nom_fichier");
+			else
+				Put("Usage : ./decompresser nom_fichier");
+			end if;
+
+		when 1 => if Compression then
+					compresser(nom_fichier);
+				else
+					decompresser(nom_fichier);
+			end if;
+
+		when 2 => if Argument(2) = "-b" or Argumen(2) = "--bavard" then
+				Bavard := True;
+				if Compression then
+					compresser(nom_fichier);
+				else
+					decompresser(nom_fichier);
+				end if;
+			else
+				raise Option_inconnue;
+			end if;
+		when others =>
+				raise Trop_arguments;
+		end case;
+
+
+
+	exception
+			when Option_inconnue => Put("L'option est inconnue");
+			when Trop_arguments => Put("Il y a trop d'arguments. Il faut en mettre au plus 2.");
+
+
+
+	end interface_utilisateur;
+
+end interface_utilisateur;

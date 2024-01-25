@@ -1,0 +1,15 @@
+with types;
+
+package fichier is
+
+
+    procedure Lire (fichier : in string ; message : out T_message ; Taille : out Integer) with
+                Pre => fichier /= Null,
+                Post => decode'first = 1 and decode'last >= 1 and lng_decode > 0 and (decode'last - decode'first) = lng_decode;
+
+
+    procedure Ecrire (fichier : in string ; message : T_message) with
+                Pre => code /= Null;
+
+
+end fichier;

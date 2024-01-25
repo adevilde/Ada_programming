@@ -1,0 +1,10 @@
+project Src is
+
+   for Main use ("test_code.adb", "test_interface.adb");
+
+   package Compiler is
+      for Switches ("Ada") use ("-g", "-O2");
+   end Compiler;
+
+end Src;
+

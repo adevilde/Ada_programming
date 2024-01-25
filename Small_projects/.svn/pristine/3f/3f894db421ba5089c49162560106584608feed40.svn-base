@@ -1,0 +1,24 @@
+generic
+	size : integer;
+
+package Fichier is 
+	type T_tab is private;
+	type T_bit is limited private;
+
+
+	Procedure Creer (file_name : in string);
+
+	Function Taille (file_name : in string) return integer;
+
+	Procedure Lire (file_name : in string ; tab : out T_tab);
+
+	Procedure Ecrire (file_name : in string ; tab : in T_tab);
+
+	Procedure Ajouter (file_name : in string ; bit : in integer);
+
+private
+	type T_bit is mod 2;
+	for T_bit'Size use 1;
+	type T_tab is array (1..size) of T_bit;
+
+end Fichier;

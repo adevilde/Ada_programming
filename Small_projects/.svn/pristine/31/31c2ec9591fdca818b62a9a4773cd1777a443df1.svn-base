@@ -1,0 +1,85 @@
+with fichier;
+with memorie;
+
+package Arbre is
+
+	package memorie8 is new memorie(byte_size => 8);
+	use memorie8;
+
+	type T_abyte is new memorie8.T_byte;
+	package fichier_0 is new fichier(size => 0);
+	type T_arbre is private;
+
+	-- Initialiser une arbre.  La arbre est vide.
+	procedure Initialiser(arbre : out T_arbre);
+            
+
+	procedure Remplire (arbre : out T_arbre);
+
+
+	-- Est-ce qu'une arbre est vide ?
+	function Est_Vide (arbre : T_arbre) return Boolean;
+
+
+	-- Est-ce qu'une arbre est terminal ?
+	function Terminal (arbre : T_arbre) return Boolean;
+
+
+	-- Obtenir le nombre d'éléments d'une arbre. 
+	function Taille (arbre : in T_arbre) return Integer;
+
+
+	-- Affecter des données au premier noeud d'un arbre.
+	procedure Affecter (arbre 	: 	in out 	T_arbre 			; 
+			    byte 	: 	in 	T_abyte 		:= T_abyte(0) 	; 
+			    freq 	: 	in 	integer 			;
+			    branche_g 	: 	in 	T_arbre 			;
+			    branche_d 	: 	in 	T_arbre 			);
+
+
+	procedure Devient_ff (arbre : out T_arbre);
+
+
+	function Est_ff (arbre : in T_arbre) return Boolean;
+
+
+	--Retourne la branche gauche de l'arbre.
+	function Branche_g (arbre : in out T_arbre) return T_arbre;
+
+
+	--Retourne la branche droite de l'arbre.
+	function Branche_d (arbre : in out T_arbre) return T_arbre;
+
+
+	-- Savoir si une Clé est présente dans une arbre.
+	function Byte_present (arbre : in T_arbre ; byte : in T_byte) return Boolean;
+
+
+	-- Obtenir la donnée associée à une octet dans la arbre.
+	-- Exception : octet_Absente_Exception si Clé n'est pas utilisée dans l'arbre
+	function La_freq (arbre : in T_arbre) return integer;
+
+
+	function Le_byte (arbre : in T_arbre) return T_byte;
+
+
+	-- Supprimer tous les éléments d'une arbre.
+	procedure Vider (arbre : in out T_arbre);
+
+
+private
+        
+        type T_noeud;
+
+        type T_arbre is access T_noeud;
+
+        type T_noeud is
+                record
+			freq : Integer;        
+			byte : T_byte;
+			branche_d : T_arbre;
+			branche_g : T_arbre;
+			ff : Boolean;
+                end record;
+
+end Arbre;

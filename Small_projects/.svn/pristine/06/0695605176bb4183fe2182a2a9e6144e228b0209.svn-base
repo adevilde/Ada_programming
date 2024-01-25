@@ -1,0 +1,52 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with arbre; use arbre;
+with memoire; use memoire;
+with interface_utilisateur; use interface_utilisateur;
+with fichier;
+with code;
+
+
+procedure compresser (nom_fichier : in String) is
+
+	nom_fichier : String;
+
+	package fichier_1 is new fichier(size => 1);
+	length : integer := fichier_1.Taille(nom_fichier);
+
+	package fichier_length is new fichier(size => length);
+	use fichier_length;
+
+	package code_0 is new code(file_size => length, nbu_byte => 0);
+
+	package code_length is new code(file_size => length, nbu_byte => code_0.nb_caractere_unique(nom_fichier));
+	use code_length;
+
+
+	Compression : Boolean := True;
+	Bavard : Boolean := False;
+	tab_branche : T_tab_branche;
+	arbre : T_arbre;
+	tab_code : T_tab_code;
+	c_code : integer := 0;
+	c_code_l : integer := 0;
+	c : integer := 0;
+	pi : T_pi;
+	bpi : T_bpi;
+	ipi : integer := 0;
+	ibpi : integer := 0;
+
+begin
+
+	interface_utilisateur(nom_fichier, Compression, Bavard);
+	Initialiser_tab_branche(tab_branche);
+	Premiere_branche(nom_fichier, tab_branche);
+	ArbreH(tab_branche, arbre);
+
+	Initialiser_tab_code(tab_code);
+	Tableau_code(arbre, tab_code, c_code, c_code_l, pi, bpi, ipi, ibpi);
+	Traduire(nom_fichier, nom_fichier.hff, tab_code, pi, bpi);
+	Free(arbre, tab_branche)
+
+end compresser;

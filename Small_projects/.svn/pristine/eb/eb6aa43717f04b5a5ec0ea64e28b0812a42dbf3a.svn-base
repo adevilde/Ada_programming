@@ -1,0 +1,122 @@
+with Arbre;	use Arbre;
+with fichier;
+
+package body decode is
+	
+	package fichier_0 is new fichier(size => 0);
+
+	Procedure Tailles (file_name 		: in string 	;
+			   lng_parcours_infixe 	: out integer 	;
+			   lng_tab_feuilles 	: out integer	;
+			   lng_code 		: out integer 	) is
+
+		Taille : integer := fichier_0.Taille("exemple_fichier.in");
+		package fichier_taille is new fichier(size => Taille);
+		tab : fichier_taille.T_tab;
+		i : integer := 0;
+		c1 : integer := 0;
+		zero : fichier_0.T_bites := (0, 0, 0 ,0 ,0, 0, 0, 0);
+	begin
+		fichier_taille.Lire(fichier, tab);
+		while tab(i..i+8) /= zero or tab(i+8..i+16) /= zero loop
+			i := i+1;
+		end loop;
+		while j + (c1 + 1) * 8 < i loop
+			j := j+1;
+		end loop;
+		lng_parcours_infixe := j;
+		lng_tab_feuilles := i - j;
+		lng_code := tab'last - i;
+	end Tailles;
+
+
+	Procedure Lire (file_name 		: in 	string 			;
+			code 			: out 	T_code 			;
+			parcours_infixe 	: out 	T_parcours_infixe 	;
+			tab_feuilles 		: out 	T_tab_feuilles 		) is
+
+		Taille : integer := fichier_0.Taille("exemple_fichier.in");
+		package fichier_taille is new fichier(size => Taille);
+		tab : fichier_taille.T_tab;
+		offset : integer;
+
+	begin
+		fichier_taille.Lire(fichier, tab);
+		parcours_infixe := tab(1..lng_parcours_infixe);
+		for i in 1..lng_tab_feuilles loop
+			for j in 1..8 loop
+				tab_feuilles(i,j) := tab(lng_parcours_infixe + 8*i + j);
+			end loop;
+		end loop;
+		offset := lng_parcours_infixe + 8*lng_tab_feuilles;
+		code := tab(offset..offset + lng_code);
+	end Lire;
+
+
+	Procedure ReconstruireH (parcours_infixe 	: in 	T_parcours_infixe	;
+				 tab_feuilles 		: in 	T_tab_feuille 		;
+				 lng_parcours_infixe 	: in 	integer 		; 
+				 arbre 			: out 	T_arbre			) is
+
+		type T_en_cours is array(1..lng_parcours_infixe) of T_arbre;
+		en_cours : T_en_cours;
+		noeud_courant : T_arbre;
+		j : integer;
+		k : integer := 1;
+
+	begin
+		for i in 1..lng_parcours_infixe loop
+			Initialiser(en_cours);
+		end loop;
+
+		Initialiser(arbre);
+		noeud_courant := arbre;
+
+		for i in 1..lng_parcours_infixe loop
+			if parcours_infixe(i) = 0 then
+				T_en_cours(i) := noeud_courant;
+				Initialiser(Branche_g(noeud_courant));
+				noeud_courant := Branche_g(noeud_courant);
+			else 
+				Affecter(noeud_courant, tab_feuilles(k));
+				k := k + 1;
+
+				j := i;
+				loop
+					noeud_courant := en_cours(j);
+					Initialiser(en_cours(j));
+					j := j + 1;
+					exit when not Terminal(en_cours(j));
+				end loop;
+
+				Initialiser(Branche_d(noeud_courant));
+				noeud_courant := Branche_d(noeud_courant);
+			end if;
+		end loop;
+	end ReconstruireH;
+
+
+	Procedure Decoder (code : in T_code ; arbre : in T_arbre ; file_name : in integer) is
+		noeud_courant : T_arbre := arbre;
+		lng_code : integer;
+		j : integer := 1;
+		octet : fichier_0.T_bites;
+	begin
+		lng_code := Taille(code);
+		for i in 1..lng_code loop
+			if Terminal(noeud_courant) then
+				octet := Octet(noeud_courant);
+				fichier_0.Ajouter(file_name, octet);
+				j := j + 1;
+				noeud_courant := arbre;
+			end if;
+
+			if code(i) = 0 then
+				noeud_courant := Branche_g(noeud_courant);
+			else
+				noeud_courant := Branche_d(noeud_courant);
+			end if;
+		end loop;
+	end Decoder;
+
+end decode;

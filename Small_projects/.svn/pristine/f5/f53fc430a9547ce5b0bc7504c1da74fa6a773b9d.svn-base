@@ -1,0 +1,278 @@
+with Ada.Streams.Stream_IO; use Ada.Streams.Stream_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Text_IO; use Ada.Text_IO;
+
+package body decode is
+	
+	Procedure Tailles (file_name 		: in string 	;
+			   nbu_byte 	 	: out integer 	;
+			   lng_parcours_infixe 	: out integer	;
+			   byte_ff 		: out T_byte 	) is
+
+		file	: Ada.Streams.Stream_IO.File_Type		;
+		S	: Stream_Access					;
+		byte	: T_byte					;
+		bytep	: T_byte					;
+		i 	: integer				:= 1	;
+		nb_ones : integer 				:= 0	;
+		bits 	: T_bits 					;
+	begin
+		nbu_byte := 257;
+		Open(file, In_File, file_name);
+		S := Stream(file);
+		byte_ff := T_byte'Input(S);
+		bytep := T_byte'Input(S);
+		while not (nbu_byte <= nb_ones + 1) or End_Of_File(file) loop
+			byte := T_byte'Input(S);
+			bits := To_bits(byte);
+			--Put(nbu_byte);
+			if nbu_byte < 257 then
+				for j in 1..8 loop
+					if Integer'Val(bits(j)) = 1 then
+						nb_ones := nb_ones + 1;
+						Put(nb_ones);
+						if nbu_byte >= nb_ones + 1 then
+							lng_parcours_infixe := (i - nbu_byte) * 8 + j ;
+						end if;
+					end if;
+				end loop;
+			end if;
+			--Put(Integer'Val(byte)); Put(Integer'Val(bytep));
+			if Integer'Val(byte) = Integer'Val(bytep) and nbu_byte >= 257 then
+				nbu_byte := i;
+			end if;
+			bytep := byte;
+			i := i + 1;
+			--Put(lng_parcours_infixe);
+			--New_line;
+			--put(i);
+		end loop;
+		Close (file);
+	end Tailles;
+
+
+	Procedure Lire (file_name 		: in 	string 			;
+			nbu_byte 		: in 	integer 		;
+			lng_parcours_infixe 	: in 	integer 		;
+			parcours_infixe 	: out 	T_parcours_infixe 	;
+			tab_feuilles 		: out 	T_tab_feuilles 		) is
+
+		file	: Ada.Streams.Stream_IO.File_Type		;
+		S	: Stream_Access					;
+		byte	: T_byte					;
+		i 	: integer				:= 0	;
+		bits 	: T_bits 					;
+	begin
+		Open(file, In_File, file_name);
+		S := Stream(file);
+		while not End_Of_File(File) or i >= nbu_byte + lng_parcours_infixe loop
+			byte := T_byte'Input(S);
+			if 1 <= i and i <= nbu_byte then
+				--bits := To_bits(byte);
+				--for j in 1..8 loop
+					--New_line;
+					--put(i);
+					--put(integer'val(bits(j)));
+				--end loop;
+				tab_feuilles(i) := byte;
+			elsif nbu_byte + 1 < i and i <= nbu_byte + 1 + lng_parcours_infixe / 8 then
+				bits := To_bits(byte);
+				for j in 1..8 loop
+					if 8 * (i - nbu_byte) - 8 + j <= lng_parcours_infixe + 2 then
+						--New_line;
+						--put(i);
+						--put(j);
+						--put(integer'val(bits(j)));
+						parcours_infixe(8 * (i - nbu_byte) - 16 + j) := bits(j);
+					end if;
+				end loop;
+			end if;
+			i := i + 1;
+		end loop;
+		Close (file);
+	end Lire;
+
+
+	Procedure ReconstruireHold (parcours_infixe 	: in 	T_parcours_infixe	;
+				 tab_feuilles 		: in 	T_tab_feuilles 		;
+				 lng_parcours_infixe 	: in 	integer 		; 
+				 byte_ff 		: in 	T_byte 			;
+				 arbre 			: out 	T_arbre			) is
+
+		type T_en_cours is array(1..lng_parcours_infixe) of T_arbre;
+		en_cours : T_en_cours;
+		noeud_courant : T_arbre;
+		j : integer;
+		k : integer := 1;
+		neant : T_arbre;
+		nouveau : T_arbre;
+	begin
+		Initialiser(neant);
+		for i in 1..lng_parcours_infixe loop
+			Initialiser(en_cours(i));
+		end loop;
+
+		Initialiser(arbre);
+
+		--Put(lng_parcours_infixe);
+		--Put(parcours_infixe'Last);
+		for i in 1..lng_parcours_infixe - 8 loop
+			--New_line;
+			--put(i);
+			--put(integer'val(parcours_infixe(i)));
+			if parcours_infixe(i) = 0 then
+				en_cours(i) := noeud_courant;
+				--Put(Taille(en_cours(i)));
+				Initialiser(nouveau);
+				Remplire(nouveau);
+				Affecter(noeud_courant, T_byte(0), 0, nouveau, neant);
+				Initialiser(noeud_courant);
+				noeud_courant := nouveau;
+				--if Terminal(en_cours(i)) then put("terminal");end if;
+				--if Est_Vide(Branche_g(noeud_courant)) then put("terminal"); end if;
+			else 
+				if k = Integer'Val(byte_ff) then
+					Devient_ff(noeud_courant);
+				else
+					Affecter(noeud_courant, T_byte(tab_feuilles(k)), 0, neant, neant);
+					--put(k);
+					k := k + 1;
+				end if;
+
+				j := i;
+				loop
+					--put(j);
+					noeud_courant := en_cours(j);
+					j := j - 1;
+					--if Terminal(en_cours(i)) then put("terminal");end if;
+					exit when not Terminal(en_cours(j));
+				end loop;
+
+				noeud_courant := Branche_d(noeud_courant);
+				Initialiser(noeud_courant);
+			end if;
+		end loop;
+		arbre := en_cours(1);
+		Vider(neant);
+	end ReconstruireHold;
+
+
+	Procedure ReconstruireH (parcours_infixe 	: in 	T_parcours_infixe	;
+				 tab_feuilles 		: in 	T_tab_feuilles 		;
+				 lng_parcours_infixe 	: in 	integer 		; 
+				 byte_ff 		: in 	T_byte 			;
+				 arbre 			: out 	T_arbre			;
+				 i			: in out integer 		;
+				 f 			: in out integer 		;
+				 rff 			: in out boolean 		) is
+		
+		neant : T_arbre;
+		bg : T_arbre ;
+		bd : T_arbre ;
+	begin
+		New_line;
+		--put(Integer'Val(byte_ff));
+		--Put(i);
+		Initialiser(neant);
+		Initialiser(arbre);
+		put(lng_parcours_infixe);
+		put(i);
+		Put(Integer'Val(parcours_infixe(i)));
+		if i <= lng_parcours_infixe - 6 then
+		if Integer'Val(parcours_infixe(i)) = 1 then
+			--put("fond");
+			--put(f);
+			if f = Integer'Val(byte_ff) and rff then
+				Devient_ff(arbre);
+				rff := False;
+				--put("ff trouvé");
+			else
+				Affecter(arbre, T_byte(tab_feuilles(f)), 0, neant, neant);
+				f := f + 1;
+			end if;
+		else
+			i := i + 1;
+			bg := Branche_g(arbre);
+			ReconstruireH(parcours_infixe, tab_feuilles, lng_parcours_infixe, byte_ff, bg, i, f, rff);
+			--Put(Taille(arbre));
+			i := i + 1;
+			bd := Branche_d(arbre);
+			ReconstruireH(parcours_infixe, tab_feuilles, lng_parcours_infixe, byte_ff, bd, i, f, rff);
+			Affecter(arbre, T_byte(0), 0, bg, bd);
+			--Put(Taille(arbre));
+		end if;
+		end if;
+	end ReconstruireH;
+
+
+
+	Procedure Decoder (file_name_in : in string ; file_name_out : in string ; arbre : in T_arbre) is
+		file_out	: Ada.Streams.Stream_IO.File_Type		;
+		S_out		: Stream_Access					;
+		file_in		: Ada.Streams.Stream_IO.File_Type		;
+		S_in		: Stream_Access					;
+		bits 		: T_bits 					;
+		noeud_courant 	: T_arbre 				:= arbre;
+		lng_code 	: integer					;
+		byte 		: T_byte					;
+		fin_fichier 	: boolean 					;
+		i 		: integer 				:= 1	;
+		tmp 		: T_bits					;
+		j 		: integer 				:=1	;
+		c 		: integer 				:= 1	;
+	begin
+		Create (file_out, Out_file, file_name_out);
+		S_out := Stream (file_out);
+		Open (file_in, In_File, file_name_in);
+		S_in := Stream (file_in);
+		while not fin_fichier and not End_Of_File(file_in) loop
+			New_line;
+			tmp := To_bits(T_byte'Input(S_in));
+			c := c + 1;
+			if c >= lng_parcours_infixe / 8 + lng_tab_feuilles + 1 then
+				Put(c);
+			end if;
+			--put(i + j);
+			while 1 <= j and j <= 8 and not fin_fichier loop
+				if fin_fichier then put("FINI"); end if;
+				if i + j >= lng_parcours_infixe - 6 + lng_tab_feuilles * 8 + 16 then
+					--put(i);
+					if Terminal(noeud_courant) then
+						--Put("Terminal");
+						byte := T_byte(Le_byte(noeud_courant));
+						if Est_ff(noeud_courant) then
+							put("ff");
+							put(Integer'val(Le_byte(noeud_courant)));
+							--fin_fichier := True;
+						else
+							T_byte'Write(S_out, byte);
+							put("write");
+							put(Integer'val(Le_byte(noeud_courant)));
+						end if;
+						noeud_courant := arbre;
+					end if;
+					
+					--put(lng_parcours_infixe / 8 + lng_tab_feuilles + 1);
+					if c >= lng_parcours_infixe / 8 + lng_tab_feuilles + 1 then
+						if tmp(j) = 0 then
+							--Put(c);
+							noeud_courant := Branche_g(noeud_courant);
+						else
+							--Put(c);
+							noeud_courant := Branche_d(noeud_courant);
+						end if;
+					end if;
+				end if;
+				j := j + 1 ;
+				i := i + 1; 
+			end loop;
+			j := 1;
+		end loop;
+		New_line;
+		put(lng_tab_feuilles);
+		put(lng_parcours_infixe);
+		Close(file_out);
+		Close(file_in);
+	end Decoder;
+
+end decode;

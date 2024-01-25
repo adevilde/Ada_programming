@@ -1,0 +1,3 @@
+code.ads:6:13: error: "function", "procedure" or "package" expected here
+code.ads:18:70: warning: "lng_decode" is not a valid aspect identifier [enabled by default]
+code.ads:18:80: error: missing ";"

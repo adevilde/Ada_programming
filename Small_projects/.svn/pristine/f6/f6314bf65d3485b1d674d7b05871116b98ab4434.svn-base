@@ -1,0 +1,131 @@
+with Arbre; use Arbre;
+with fichier; use fichier;
+
+package body code is
+
+
+    package fichier_taille is new fichier(size => Taille);
+	tab : fichier_taille.T_tab;
+
+
+    procedure Premiere_branche (octet : in T_octet ;
+                                tab_branche : in out T_tab_branche) is
+    begin
+
+        Initialiser(tab_branche);
+        S := Stream(File);
+        While not End_Of_File(File) loop
+            Octet := T_octet'Input(S);             -- Lire le fichier et ajouter 1 à la freq correspondant à l'octet
+            tab_branche(Octet)_freq := tab_branche(Octet)_freq + 1;
+        end loop;
+
+    end Premiere_branche;
+
+
+
+
+
+    procedure ArbreH (tab_branche : in T_tab_branche;
+                      lng_code : in integer;
+                      arbre : in out T_arbre) is
+
+        freq : integer := 0;
+        tab_branche_bis : T_tab_branche := tab_branche;
+
+
+        procedure Trouver_min (tab_branche : in T_tab_branche) is
+
+            min1 : T_arbre := tab_branche(1);
+            min2 : T_arbre := tab_branche(2);
+            i_min1 : integer := 1;
+            i_min2 : integer := 2;
+            tmp : T_arbre := min1;              -- Utile pour permuter min1 et min2 en cas de besoin
+            i_tmp : Integer := i_min1;
+
+        begin
+
+            for i in 1..Taille(tab_branche) loop
+
+                if min1 > min2 then             -- On veut que min1 soit le plus petit des 2 min
+                    min1 := min2;
+                    min2 := tmp;
+                    i_min1 := i_min2;
+                    i_min2 := i_tmp;
+                end if;
+
+                if tab_branche(i) =< min1 then
+                    min1 := tab_branche(i);
+                    i_min1 := i;
+                elsif tab_branche(i) =< min2 and tab_branche(i) > min1 then
+                    min2 := tab_branche(i);
+                    i_min2 := i;
+                else
+                    null;
+                end if;
+
+            end loop;
+
+        end Trouver_min;
+
+
+
+    begin
+
+        while freq < lng_code loop                   -- La somme de chaque fréquence vaut lng_code
+
+            Trouver_min(tab_branche_bis);            -- Nous donnes min1, min2, i_min1, i_min2
+            tab_branche_bis(i_min1) := Null;         -- Supprime min1 pour retrouver les nouveaux min au prochain tour de boucle
+
+            tab_branche(i_min1)_octet := 300;        -- Jsp pourquoi ça vaut 300
+            freq := min1_freq + min2_freq;
+            tab_branche(i_min1)_freq := freq;
+            tab_branche(i_min1)_branche_d := min2;
+            tab_branche(i_min2)_branche_g := min1;
+        end loop;
+
+        arbre := min1;                               -- Jsp trop pourquoi c'est hors de la boucle mais j'ai compris que ct l'arbre
+
+    end ArbreH;
+
+
+
+
+    procedure Tableau_code (arbre : in T_arbre;
+                            tab_code : out T_tab_code) is
+
+    begin
+        code_d := [1,-1,-1,-1,-1,-1,-1,-1];
+        code_g := [0,-1,-1,-1,-1,-1,-1,-1]
+
+        -- Parcourir l'arbre de branche_d (dans le programme principal ?)
+        -- Parcourir l'arbre de branche_g (dans le programme principal ?)
+
+    end Tableau_code;
+
+
+
+
+    procedure Traduire (fichier : in string;
+                        tab_code : in T_tab_code) is
+
+        tab_trad : array (1..Taille(tab_code)) of T_code;
+        c ; integer := 0;
+
+    begin
+
+        S := Stream(File);
+        while not End_Of_File(File) loop
+            Octet := T_octet'Input(S);
+            tab_trad(c) := tab_code(Octet);
+            c := c + 1;
+        end loop;
+
+    end Traduire;
+
+
+    -- Je n'ai pas fait Lire et Ecrire parce qu'on peut surement utiliser ceux de fichier.ads
+
+end code;
+
+
+

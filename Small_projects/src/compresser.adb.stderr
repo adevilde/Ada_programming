@@ -1,0 +1,4 @@
+compresser.adb:69:25: error: left hand of assignment must not be limited type
+compresser.adb:71:49: error: array type required in indexed component
+compresser.adb:216:39: error: expected private type "T_code" defined at code.ads:20, instance at line 23
+compresser.adb:216:39: error: found type "Standard.Integer"

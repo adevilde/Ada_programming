@@ -1,0 +1,174 @@
+V "GNAT Lib v2021"
+A -O2
+A -gnatA
+A -g
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_LOCAL_ALLOCATORS
+RV NO_RECURSION
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_UNCHECKED_DEALLOCATION
+RV NO_DEFAULT_INITIALIZATION
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U arbre%b		arbre.adb		7576898e NE OO PK
+W ada%s			ada.ads			ada.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W ada.unchecked_deallocation%s
+Z fichier%s		fichier.adb		fichier.ali  ED
+
+U arbre%s		arbre.ads		16843d78 EE NE OO PK
+W ada%s			ada.ads			ada.ali
+Z ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.streams%s		a-stream.adb		a-stream.ali
+Z ada.streams.stream_io%s  a-ststio.adb		a-ststio.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+Z ada.text_io%s		a-textio.adb		a-textio.ali
+W fichier%s		fichier.adb		fichier.ali
+W memoire%s		memoire.adb		memoire.ali
+Z system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+
+D ada.ads		20210520051130 76789da1 ada%s
+D a-except.ads		20210520051127 946f3014 ada.exceptions%s
+D a-inteio.ads		20210520051127 f64b89a4 ada.integer_text_io%s
+D a-ioexce.ads		20210520051127 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20210520051128 119b8fb3 ada.streams%s
+D a-ststio.ads		20210520051128 d6d358e8 ada.streams.stream_io%s
+D a-string.ads		20210520051128 90ac6797 ada.strings%s
+D a-sttebu.ads		20210520051128 18209c64 ada.strings.text_buffers%s
+D a-stuten.ads		20210520051128 808c40ad ada.strings.utf_encoding%s
+D a-tags.ads		20210520051129 9eaa38c6 ada.tags%s
+D a-textio.ads		20210520051129 aef4d56d ada.text_io%s
+D a-tiinio.ads		20210520051129 390edddb ada.text_io.integer_io%s
+D a-unccon.ads		20210520051129 0e9b276f ada.unchecked_conversion%s
+D a-uncdea.ads		20210520051129 c3a8ac65 ada.unchecked_deallocation%s
+D arbre.ads		20220113140800 07818ff6 arbre%s
+D arbre.adb		20220113140955 1fab7f70 arbre%b
+D fichier.ads		20220113140503 a3bb2005 fichier%s
+D fichier.adb		20220113135821 ea5f2707 fichier%b
+D interfac.ads		20210520051131 edec285f interfaces%s
+D i-cstrea.ads		20210520051131 e53d8b8e interfaces.c_streams%s
+D memoire.ads		20220113140246 b2be928b memoire%s
+D system.ads		20210520051134 a2da961d system%s
+D s-crtl.ads		20210520051131 0ebbdb71 system.crtl%s
+D s-exctab.ads		20210520051131 54135002 system.exception_table%s
+D s-ficobl.ads		20210520051131 078245e4 system.file_control_block%s
+D s-parame.ads		20210520051133 4752c4cb system.parameters%s
+D s-putima.ads		20210520051133 4e095881 system.put_images%s
+D s-secsta.ads		20210520051133 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20210520051133 a7318a92 system.soft_links%s
+D s-stache.ads		20210520051133 a37c21ec system.stack_checking%s
+D s-stalib.ads		20210520051133 472fbca8 system.standard_library%s
+D s-stoele.ads		20210520051133 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20210520051133 ed88f8fb system.storage_elements%b
+D s-stratt.ads		20210520051133 7bdda3fa system.stream_attributes%s
+D s-traent.ads		20210520051133 26a8d361 system.traceback_entries%s
+D s-unstyp.ads		20210520051133 2b077493 system.unsigned_types%s
+D s-wchcon.ads		20210520051134 1b7d22d2 system.wch_con%s
+D unchconv.ads		20210520051134 ca2f9e18 unchecked_conversion%s
+G a e
+G c s s s [s arbre 4 1 none]
+G c Z s s [creer arbre__fichier_0 12 19 6_9]
+G c Z s s [taille arbre__fichier_0 14 18 6_9]
+G c Z s s [lire_bit arbre__fichier_0 16 19 6_9]
+G c Z s s [lire_byte arbre__fichier_0 18 19 6_9]
+G c Z s s [ecrire arbre__fichier_0 20 19 6_9]
+G c Z s s [ajouter arbre__fichier_0 22 19 6_9]
+G c Z s s [Tt_tab_bitBIP arbre__fichier_0 9 9 6_9]
+G c Z s s [Tt_tab_byteBIP arbre__fichier_0 10 9 6_9]
+G c Z s s [to_byte arbre__fichier_0 9 18 6_9]
+G c Z s s [to_bits arbre__fichier_0 19 18 6_9]
+G c Z s b [initialiser arbre 11 19 none]
+G c Z s b [remplire arbre 14 19 none]
+G c Z s b [est_vide arbre 18 18 none]
+G c Z s b [terminal arbre 22 18 none]
+G c Z s b [taille arbre 26 18 none]
+G c Z s b [affecter arbre 30 19 none]
+G c Z s b [devient_ff arbre 38 19 none]
+G c Z s b [est_ff arbre 42 18 none]
+G c Z s b [branche_g arbre 46 18 none]
+G c Z s b [branche_d arbre 50 18 none]
+G c Z s b [byte_present arbre 54 18 none]
+G c Z s b [la_freq arbre 59 18 none]
+G c Z s b [le_byte arbre 62 18 none]
+G c Z s b [vider arbre 66 19 none]
+G c Z s s [t_noeudIP arbre 75 14 none]
+G c Z b b [free arbre 7 19 none]
+G r i none [s arbre 4 1 none] [fichier standard 6 9 none]
+X 1 ada.ads
+16K9*Ada 20e8 16|1r6 1r34 2r6 8r21
+X 11 a-textio.ads
+58K13*Text_IO 725e16 16|1w10 1r38
+X 14 a-uncdea.ads
+17+9 Object 16|8r49
+18P9 Name(17+9) 16|8r68
+20u15*Unchecked_Deallocation 16|2w10 8r25
+X 15 arbre.ads
+4K9*Arbre 71E14 84l5 84e10 16|5b14 156l5 156t10
+6K17*fichier_0[17|6]
+8P14*T_arbre 11r43 14r41 18r36 22r36 26r37 30r57 33r57 34r57 38r43 42r37
+. 46r44 46r60 50r44 50r60 54r43 59r38 62r38 66r41 73c14 79r37 80r37 16|8r76
+. 11r42 17r41 23r36 32r36 43r37 52r57 55r57 56r57 71r43 80r37 89r44 89r60
+. 98r44 98r60 107r43 108r15 119r38 120r23 137r38 147r41
+11U19*Initialiser 11<31 16|11b19 14l13 14t24
+11p31 arbre{8P14} 16|11b31 13m17
+14U19*Remplire 14<29 16|17b19 20l13 20t21
+14p29 arbre{8P14} 16|17b29 19m17
+18V18*Est_Vide{boolean} 18>28 16|23b18 29l13 29t21 34s20 36s23 36s57 45s12
+. 59s13 73s20 82s20 91s20 100s20 110s20 123s24 139s24 149s24
+18p28 arbre{8P14} 16|23b28 25r12
+22V18*Terminal{boolean} 22>28 16|32b18 40l13 40t21
+22p28 arbre{8P14} 16|32b28 34r29 36r32 36r66
+26V18*Taille{integer} 26>26 16|43b18 48s20 48s50 49l13 49t19
+26p26 arbre{8P14} 16|43b26 45r21 48r27 48r57
+30U19*Affecter 30=29 31>29 32>29 33>29 34>29 16|52b19 68l13 68t21
+30p29 arbre{8P14} 16|52b29 59r22 60m25 63r17 64r10 65r17 66r17 67r17
+31m29 byte{21|6M14} 16|53b29 63r42
+32i29 freq{integer} 16|54b29 64r28
+33p29 branche_g{8P14} 16|55b29 65r40
+34p29 branche_d{8P14} 16|56b29 66r40
+38U19*Devient_ff 38<31 16|71b19 77l13 77t23
+38p31 arbre{8P14} 16|71b31 73r29 74m25 76r17
+42V18*Est_ff{boolean} 42>26 16|80b18 86l13 86t19
+42p26 arbre{8P14} 16|80b26 82r29 85r24
+46V18*Branche_g{8P14} 46=29 16|89b18 95l13 95t22
+46p29 arbre{8P14} 16|89b29 91r29 92m25 94r24
+50V18*Branche_d{8P14} 50=29 16|98b18 104l13 104t22
+50p29 arbre{8P14} 16|98b29 100r29 101m25 103r24
+54V18*Byte_present{boolean} 54>32 54>53 16|107b18 115s24 115s67 116l13 116t25
+54p32 arbre{8P14} 16|107b32 108r26 110r29 112r23 115r37 115r80
+54m53 byte{21|6M14} 16|107b53 112r40 115r58 115r101
+59V18*La_freq{integer} 59>27 16|119b18 133s24 133s55 134l13 134t20
+59p27 arbre{8P14} 16|119b27 120r34 123r33 124r32 133r32 133r63
+62V18*Le_byte{21|6M14} 62>27 16|137b18 144l13 144t20
+62p27 arbre{8P14} 16|137b27 139r33 140r32
+66U19*Vider 66=26 16|147b19 150s25 151s25 154l13 154t18
+66p26 arbre{8P14} 16|147b26 149r33 150r31 151r31 152m30
+71R14 T_noeud 73r32 75c14 82e27 16|8r59 19r30 60r38 74r38 92r38 101r38
+77i25*freq{integer} 16|64m20 124r42
+78m25*byte{21|6M14} 16|63m27 112r33 140r42
+79p25*branche_d{8P14} 16|36r76 48r67 66m27 103r34 115r90 133r73 151m41
+80p25*branche_g{8P14} 16|36r42 48r37 65m27 94r34 115r47 133r42 150m41
+81b25*ff{boolean} 16|67m27 76m27 85r34
+X 16 arbre.adb
+7U19 Free[14|20] 152s25
+108p9 tmp{15|8P14}
+120p17 tmp{15|8P14}
+121m17 byte{21|6M14}
+X 17 fichier.ads
+4i9 size{integer} 15|6r42
+6k9*Fichier 15|1w6 6r34 17|24e12
+X 21 memoire.ads
+1K9*memoire 15|2w6 2r19 21|15e12
+6M14*T_byte 15|31r57 31r76 54r63 62r54 78r32 16|53r57 53r76 63r35 107r63
+. 121r24 137r54 142r32
+

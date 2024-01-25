@@ -1,0 +1,24 @@
+with memoire; use memoire;
+
+generic
+	size : integer;
+
+package Fichier is 
+	
+	
+	type T_tab_bit is array (1..size*8) of T_bit;
+	type T_tab_byte is array (1..size) of T_byte;
+
+	Procedure Creer (file_name : in string);
+
+	Function Taille (file_name : in string) return integer;
+
+	Procedure Lire_bit (file_name : in string ; tab : out T_tab_bit);
+
+	Procedure Lire_byte (file_name : in string ; tab : out T_tab_byte);  -- Plus petite unité indexable en mémoire
+
+	Procedure Ecrire (file_name : in string ; tab : in T_tab_bit);
+
+	Procedure Ajouter (file_name : in string ; bits : in T_bits);
+
+end Fichier;

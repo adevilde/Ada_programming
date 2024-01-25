@@ -1,0 +1,12 @@
+with Ada.Text_IO;		use Ada.Text_IO;
+with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
+with code;			use code;
+with Ada.Streams.Stream_IO;	use Ada.Streams.Stream_IO;
+with types;			use types;
+
+procedure test_code is
+
+
+begin
+	Null;
+end test_code;

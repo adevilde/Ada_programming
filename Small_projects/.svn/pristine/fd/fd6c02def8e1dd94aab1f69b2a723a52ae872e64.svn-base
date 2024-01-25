@@ -1,0 +1,43 @@
+with Arbre; use arbre;
+with memorie;
+with fichier;
+
+generic 
+	file_size : integer;
+	byte_size : integer := 8;
+	
+
+package code is
+	package memorie8 is new memorie(byte_size => byte_size);
+	use memorie8;
+	package fichier_taille is new fichier(size => file_size, byte_size => byte_size);
+	use fichier_taille;
+
+	type T_trad is limited private;
+	type T_tab_code is limited private;
+	type T_tab_branche is limited private;
+	
+	
+	procedure Lire (file_name : in string ; decode : out T_tab_byte);
+
+	procedure Premiere_branche (decode : in T_tab_byte ; tab_branche : in out T_tab_branche);
+
+	procedure ArbreH (tab_branche : in out T_tab_branche ; arbre : in out T_arbre);
+
+	procedure Tableau_code (arbre : in T_arbre ; tab_code : out T_tab_code ; c_code : in out integer ; c_code_l : in out integer);
+
+	procedure Traduire (decode : in T_tab_byte ; tab_code : in T_tab_code ; code : out T_tab_bit ; code_size : out integer);
+
+	procedure Ecrire (file_name : in string ; code : in T_tab_bit ; code_size : in integer);
+	
+	
+private
+	Type T_trad is record
+		length : integer;
+		value : T_byte;
+	end record;
+	Type T_tab_code is array (1..256) of T_trad;
+	Type T_tab_branche is array (1..256) of T_arbre;
+	
+end code;
+					

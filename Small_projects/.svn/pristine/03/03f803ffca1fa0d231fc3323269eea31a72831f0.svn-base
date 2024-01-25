@@ -1,0 +1,31 @@
+package code is
+	
+	procedure Lire (fichier : string in ; decode : T_decode out ; lng_decode : out) with 
+	Pre => fichier /= Null;
+	Post => decode'first = 1 and decode'last >= 1 and lng_decode > 0 and (decode'last - decode'first) = lng_decode;
+
+
+	procedure Première_branche (decode : T_decode in ; tab_branche : T_tab_branche out ; lng_decode : integer out ; lng_diff : integer out) with
+	Pre => lng_decode > 0;
+    Post => tab_branche'first = 1 and tab_branche'last = lng_diff;
+
+
+	procedure ArbreH (tab_branche : T_tab_branche in ; lng_decode : integer in ; arbre : T_arbre) with
+            Pre => tab_branche'first = 1 and tab_branche'last >= 1 ; lng_decode > 0;
+    
+
+    procedure Tableau_code (arbre : T_arbre in ; tab_code : T_tab_code out) with
+            Pre => arbre'first = 1 and arbre'last >= 1 ;
+    
+    
+    procedure Traduire (fichier : string in, code : T_code) with
+    Pre => fichier /= Null;
+    Post => code'first = 1 and code'last >= 1;
+                       
+    
+    procedure Ecrire (code : T_code in) with
+            Pre => code /= Null;
+            
+    
+end code;
+                    

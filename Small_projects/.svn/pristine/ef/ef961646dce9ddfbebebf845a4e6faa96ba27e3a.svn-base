@@ -1,0 +1,105 @@
+with Ada.Streams.Stream_IO; use Ada.Streams.Stream_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Text_IO; use Ada.Text_IO;
+
+
+package body Fichier is
+
+
+	Function To_octet (bites : in T_bites) return T_octet is
+		octet : integer := 0;
+	begin
+		for i in 1..8 loop
+			octet := octet + bites(i) * 2**(8-i);
+		end loop;
+		return T_octet(octet);
+	end To_octet;
+
+	Function To_bites (octet : in T_octet) return T_bites is
+		ioc : integer := Integer'Val(octet);
+		bites : T_bites;
+	begin
+		for i in 0..7 loop
+			bites(8-i) := ioc mod 2;
+			ioc := ioc / 2;
+		end loop;
+		return bites;
+	end To_bites;
+
+
+	Procedure Creer (file_name : in string) is
+		file	: Ada.Streams.Stream_IO.File_Type		;
+	begin
+		Create (file, Out_file, file_name);
+		Close (file);
+	end Creer;
+
+
+	Function Taille (file_name : in string) return integer is
+		file	: Ada.Streams.Stream_IO.File_Type		;
+		S	: Stream_Access					;
+		octet	: T_octet					;
+		c 	: integer				:= 0	;
+	begin
+		Open(file, In_File, file_name);
+		S := Stream(File);
+		while not End_Of_File(File) loop
+			octet := T_octet'Input(S);
+			c := c + 1;
+		end loop;
+		Close (File);
+		return c;
+	end Taille;
+
+
+	Procedure Lire (file_name : in string ; tab : out T_tab) is
+		file	: Ada.Streams.Stream_IO.File_Type		;
+		S	: Stream_Access					;
+		octet	: T_octet					;
+		bites 	: T_bites 					;
+		i 	: integer				:= 0	;
+	begin
+		Open(file, In_File, file_name);
+		S := Stream(file);
+		while not End_Of_File(File) loop
+			octet := T_octet'Input(S);
+			bites := To_bites(octet);
+			for j in 1..8 loop
+				tab(8*i + j) := bites(j);
+			end loop;
+			i := i + 1;
+		end loop;
+		Close (file);
+	end Lire;
+
+
+	Procedure Ecrire (file_name : in string ; tab : in T_tab) is
+		file	: Ada.Streams.Stream_IO.File_Type		;
+		S	: Stream_Access					;
+		bites 	: T_bites 					;
+	begin
+		Create (file, Out_file, file_name);
+		S := Stream (file);
+		for i in 0..size - 1 loop
+			for j in 1..8 loop
+				bites(j) := tab(8*i + j);
+			end loop;
+			T_octet'Write(S, To_octet(bites));
+		end loop;
+		Close (file);
+	end Ecrire;
+
+
+	Procedure Ajouter (file_name : in string ; bites : in T_bites) is
+		file	: Ada.Streams.Stream_IO.File_Type		;
+		S	: Stream_Access					;
+	begin
+		Open(file, Out_File, file_name);
+		S := Stream(file);
+		T_octet'Write(S, To_octet(bites));
+		Close (file);
+	end Ajouter;
+		
+
+end Fichier;
+

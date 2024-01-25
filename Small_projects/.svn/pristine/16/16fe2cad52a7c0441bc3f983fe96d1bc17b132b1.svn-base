@@ -1,0 +1,81 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with arbre; use arbre;
+with memoire; use memoire;
+with fichier;
+with code;
+
+procedure test_code is
+	
+
+	package fichier_1 is new fichier(size => 1);
+	length : integer := fichier_1.Taille("exemple.txt");
+	
+	package fichier_length is new fichier(size => length);
+	use fichier_length;
+
+	package code_length is new code(file_size => length, nbu_byte => 129);
+	use code_length;
+
+	procedure Afficher_arbre(arbre : in T_arbre ; e : in out integer) is
+		cp_arbre : T_arbre := arbre;
+	begin
+		if Terminal(arbre) then
+			Put("o");
+		else
+			put("---");
+			e := e + 1;
+			Afficher_arbre (Branche_g(cp_arbre), e);
+			for j in 1..2 loop
+				New_line;
+				for i in 1..e-1 loop
+					put("|");
+					put("  "); 
+				end loop;
+			end loop;
+			put("\");
+			Afficher_arbre (Branche_d(cp_arbre), e);
+			e := e - 1;
+		end if;
+	end Afficher_arbre;
+
+	decode : code_length.fichier_taille.T_tab_byte;
+	tab_branche : T_tab_branche;
+	arbre : T_arbre;
+	tab_code : T_tab_code;
+	c_code : integer := 0;
+	c_code_l : integer := 0;
+	c : integer := 0;
+	pi : T_pi;
+	bpi : T_bpi;
+	ipi : integer := 0;
+	ibpi : integer := 0;
+	e : integer := 0;
+
+	
+begin
+	Premiere_branche("exemple.txt", tab_branche);
+	Put("Premiere_branche ok");
+	ArbreH(tab_branche, arbre);
+	Put("ArbreH ok");
+	--Put(Taille(arbre));
+	Put_Line("Taille arbre finie");
+	Initialiser_tab_code(tab_code);
+	Tableau_code(arbre, tab_code, c_code, c_code_l, pi, bpi, ipi, ibpi);
+	--for i in 0..255 loop
+		--Acces_tab_code(tab_code, code_length.memorie8.T_byte(i), val, len);
+		--bits := To_bits(memorie8.T_byte(val));
+		--if len /= 0 then New_line; c := c+1 ; end if;
+		--for j in 1..len loop
+			--put(integer'val(bits(j)));
+		--end loop;
+	--end loop;
+	--New_line;
+ --Put(c);
+	Put("Tableau_code ok");
+	-- Traduire ("exemple_fichier.in", "exemple_fichier.code.out", tab_code, pi, bpi);
+	Put("Traduire ok");
+	New_line;
+	--Afficher_arbre(arbre, e);
+	Free(arbre, tab_branche);
+end test_code;

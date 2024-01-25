@@ -1,0 +1,91 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with arbre; use arbre;
+with memoire; use memoire;
+with fichier;
+with code;
+with interface_utilisateur; use interface_utilisateur;
+
+
+procedure test_interface is
+
+	package fichier_1 is new fichier(size => 1);
+	length : integer := fichier_1.Taille("exemple_huff.txt");
+
+	package fichier_length is new fichier(size => length);
+	use fichier_length;
+
+	package code_0 is new code(file_size => length, nbu_byte => 0);
+
+	package code_length is new code(file_size => length, nbu_byte => code_0.nb_caractere_unique("exemple_huff.txt"));
+	use code_length;
+
+	tab_branche : T_tab_branche;
+	arbre : T_arbre;
+	tab_code : T_tab_code;
+	c_code : integer := 0;
+	c_code_l : integer := 0;
+	c : integer := 0;
+	pi : T_pi;
+	bpi : T_bpi;
+	ipi : integer := 0;
+	ibpi : integer := 0;
+	indent : Unbounded_String := To_Unbounded_String("");
+
+
+
+
+	procedure Afficher_tableH (tab_code : in T_tab_code) is
+
+		codeH : T_bits;
+		val : T_byte;
+		length : Integer;
+
+	begin
+
+		for i in 0..255 loop
+			Acces_tab_code(tab_code, T_byte(i), val, length);
+			if length /= 0 then
+				Put("'");
+				-- Afficher symbole correspondant au code
+				Put(Character'Val(i));
+				Put("' --> ");
+
+				codeH := To_bits(val);
+				for j in length..8 loop
+					Put(Integer'Val(codeH(j)),1);
+				end loop;
+				New_Line;
+			end if;
+		end loop;
+
+	end Afficher_tableH;
+
+
+
+begin
+	Premiere_branche("exemple_huff.txt", tab_branche);
+	Put("Premiere_branche ok");
+	ArbreH(tab_branche, arbre);
+	Put("ArbreH ok");
+	--Put(Taille(arbre));
+	Put("Taille arbre finie");
+	Initialiser_tab_code(tab_code);
+	Tableau_code(arbre, tab_code, c_code, c_code_l, pi, bpi, ipi, ibpi);
+	--for i in 0..255 loop
+		--Acces_tab_code(tab_code, code_length.memorie8.T_byte(i), val, len);
+		--bits := To_bits(memorie8.T_byte(val));
+		--if len /= 0 then New_line; c := c+1 ; end if;
+		--for j in 1..len loop
+			--put(integer'val(bits(j)));
+		--end loop;
+	--end loop;
+	--New_line;
+	--Put(c);
+	Put_Line("Tableau_code ok");
+	Afficher_arbreH(Arbre, indent, False);
+	New_Line;
+	Afficher_tableH(tab_code);
+	Put("Arbre Huffman code OK");
+end test_interface;

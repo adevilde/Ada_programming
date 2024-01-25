@@ -1,0 +1,45 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with arbre; use arbre;
+with memorie;
+with fichier;
+with code;
+
+procedure test_code is
+	package memorie8 is new memorie(byte_size=>8);
+	use memorie8;
+
+	package fichier_1 is new fichier(size => 1);
+	length : integer := fichier_1.Taille("exemple_fichier.in");
+	
+	package fichier_length is new fichier(size => length);
+	use fichier_length;
+
+	package code_length is new code(file_size => length);
+	use code_length;
+
+	decode : code_length.fichier_taille.T_tab_byte;
+	tab_branche : T_tab_branche;
+	arbre : T_arbre;
+	tab_code : T_tab_code;
+	code : code_length.fichier_taille.T_tab_bit;
+	code_size : integer;
+	c_code : integer := 0;
+	c_code_l : integer := 0;
+
+begin
+	Lire("exemple_fichier.in", decode);
+	Put("Lire ok");
+	Premiere_branche(decode, tab_branche);
+	Put("Premiere_branche ok");
+	ArbreH(tab_branche, arbre);
+	Put("ArbreH ok");
+	Put(Taille(arbre));
+	Put("Taille arbre finie");
+	Tableau_code(arbre, tab_code, c_code, c_code_l);
+	Put("Tableau_code ok");
+	Traduire(decode, tab_code, code, code_size);
+	Put("Traduire ok");
+	code_length.Ecrire("exemple_fichier.code.out", code, code_size);
+	Put("Ecrire ok");
+end test_code;

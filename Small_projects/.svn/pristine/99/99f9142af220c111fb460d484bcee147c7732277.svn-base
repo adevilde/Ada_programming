@@ -1,0 +1,23 @@
+package body memorie is
+
+	Function To_byte (bits : in T_bits) return T_byte is
+		byte : integer := 0;
+	begin
+		for i in 1..byte_size loop
+			byte := byte + Integer'Val(bits(i)) * 2**(byte_size-i);
+		end loop;
+		return T_byte(byte);
+	end To_byte;
+
+	Function To_bits (byte : in T_byte) return T_bits is
+		ioc : integer := Integer'Val(byte);
+		bits : T_bits;
+	begin
+		for i in 0..byte_size - 1 loop
+			bits(byte_size-i) := T_bit(ioc mod 2);
+			ioc := ioc / 2;
+		end loop;
+		return bits;
+	end To_bits;
+
+end memorie;

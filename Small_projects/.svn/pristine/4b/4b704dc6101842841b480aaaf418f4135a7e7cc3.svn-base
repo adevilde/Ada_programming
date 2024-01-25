@@ -1,0 +1,121 @@
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with arbre; use arbre;
+with memoire; use memoire;
+with fichier;
+with code;
+
+package body interface_utilisateur is
+
+	tab_code : T_tab_code;
+
+
+	procedure Afficher_arbreH (Arbre : in out T_arbre;
+							indent : in Unbounded_String ;
+							Est_Gauche : in Boolean ;
+							Bavard : in Boolean) is
+
+		compteur : Integer := 1;
+		Branche_droite : T_arbre;
+		Branche_gauche : T_arbre;
+		new_indent : Unbounded_String := indent;
+	begin
+
+		if Bavard = True then
+
+			if not Est_Vide(Arbre) then
+
+				if indent /= "" then
+					Put(To_String(indent));
+					Put("\--");
+					if Est_Gauche then
+						Put("0--");
+					else
+						Put("1--");
+					end if;
+				end if;
+
+				Put("(");
+				Put(La_freq(Arbre),1);
+				Put(")");
+
+				if Terminal(Arbre) then
+					Put(" '");
+					Put(Character'Val(Le_byte(Arbre)));
+					Put("'");
+				end if;
+
+				New_Line;
+
+				if indent = "" then
+					Append(new_indent, " ");
+				elsif Est_Gauche then
+					Append(new_indent, "|     ");
+				else
+					Append(new_indent, "      ");
+				end if;
+
+				if not Terminal(Arbre) then
+					Branche_gauche := Branche_g(Arbre);
+					Afficher_arbreH(Branche_gauche, new_indent, True, Bavard);
+
+					Branche_droite := Branche_d(Arbre);
+					Afficher_arbreH(Branche_droite, new_indent, False, Bavard);
+				end if;
+			else
+				New_Line;
+			end if;
+
+		end if;
+
+	end Afficher_arbreH;
+
+
+
+
+
+
+	procedure interface_utilisateur (Bavard : out Boolean := False ;
+								  Compression : in Boolean) is
+
+	begin
+
+		case Argument_Count is
+
+		when 0 => if Compression then
+				Put("Usage : ./compresser nom_fichier");
+			else
+				Put("Usage : ./decompresser nom_fichier");
+			end if;
+
+		when 1 => if Compression then
+					compresser(nom_fichier);
+				else
+					decompresser(nom_fichier);
+			end if;
+
+		when 2 => if Argument(1) = "-b" or Argumen(1) = "--bavard" then
+				Bavard := True;
+				if Compression then
+					compresser(nom_fichier);
+				else
+					decompresser(nom_fichier);
+				end if;
+			else
+				raise Option_inconnue;
+			end if;
+		when others =>
+				raise Trop_arguments;
+		end case;
+
+
+
+	exception
+			when Option_inconnue => Put("L'option est inconnue");
+			when Trop_arguments => Put("Il y a trop d'arguments. Il faut en mettre au plus 2.");
+
+
+
+	end interface_utilisateur;
+
+end interface_utilisateur;

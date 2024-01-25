@@ -1,0 +1,3 @@
+types.ads:23:17: error: array type required in indexed component
+types.ads:23:47: error: array type required in indexed component
+types.ads:23:71: error: array type required in indexed component

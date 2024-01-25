@@ -1,0 +1,8 @@
+test_interface.adb:49:50: error: expected type "Standard.Integer"
+test_interface.adb:49:50: error: found type "T_byte" defined at memoire.ads:6
+test_interface.adb:60:42: error: expected type "T_bits" defined at memoire.ads:9
+test_interface.adb:60:42: error: found private type "T_code" defined at code.ads:20, instance at line 21
+test_interface.adb:70:52: error: expected type "T_byte" defined at memoire.ads:6
+test_interface.adb:70:52: error: found private type "T_code" defined at code.ads:20, instance at line 21
+test_interface.adb:90:39: error: expected private type "T_code" defined at code.ads:20, instance at line 21
+test_interface.adb:90:39: error: found type "Standard.Integer"
