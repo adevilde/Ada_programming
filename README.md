@@ -1,4 +1,4 @@
-# Ada_programming_1st_year_N7
+# Ada_programming_N7
 
 Core concepts of **imperative programing** are taught and manipulated using a pseudo-langage for recitation classes and using **ADA**
 for labs.
